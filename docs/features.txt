@@ -1,0 +1,110 @@
+4: Inventory Alerts / Analytics improvements.
+    This is big important. 
+2:
+    - [x] Additional blood products:
+        Whole Blood: Whole blood contains all the components of blood, including red blood cells, white blood cells, platelets, and plasma. It is typically used in cases of acute blood loss or severe anemia.
+
+        Packed Red Blood Cells (pRBCs): pRBCs are red blood cells that have been separated from the plasma. They are used to treat anemia or hemorrhage without the need for the additional plasma volume.
+
+        Fresh Frozen Plasma (FFP): FFP is the liquid portion of blood that has been separated and frozen. It contains clotting factors and is used to treat clotting disorders, coagulopathies, or to replace lost plasma volume.
+
+        Frozen Plasma (FP): Similar to FFP, frozen plasma contains clotting factors but may have a longer shelf life when compared to fresh frozen plasma.
+
+        Platelet Concentrates: Platelet concentrates are used to treat thrombocytopenia (low platelet count) or clotting disorders. They are often derived from whole blood through a centrifugation process.
+
+        Cryoprecipitate: Cryoprecipitate is a component of plasma that is rich in clotting factors. It is used to treat specific clotting disorders, such as von Willebrand disease.
+
+        Albumin: Albumin is a protein found in plasma and can be administered to maintain blood volume and treat hypoalbuminemia. 
+
+        Immunoglobulins: Immunoglobulins are antibodies used to provide passive immunity or treat certain immune-related disorders.
+
+        Hemoglobin-Based Oxygen Carriers (HBOCs): These are synthetic substances designed to carry and deliver oxygen to tissues, often used in critical care situations.
+
+            It makes the most sense right now to simply add a new model component, bloodProductType, that will take: pRBC, FFP, FP, PC, CRYO, ALB, IMMU, HBOC. This can then be filtered and mapped and searched. Whole blood is nbd, at least, that's all donor stuff.
+
+            This will probably require a complete overhaul of the inventory and consumption displays, which then necessitates fun things like how to display the information sensibly.
+
+
+1: 
+    https://www.cdfa.ca.gov/AHFSS/cabb/docs/animal_blood_banking_guidance_resource.pdf 
+    These regs need to be added for a commit donation or something. 
+        These should be a separate form under the pet card, that is accessible by button. Its purpose will be:
+            when the pet is here, we need to collect this data. When the donation is complete, it needs to export the form as a PDF.
+                How to make a super lengthy form that isn't garbage? Maybe ezyVet / software pulls (labwork, clinical hx, IDs, weight, etc etc etc.)
+
+
+3: 
+    If the app is used as intended, there needs to be a feedback loop of sorts? A way for clinical staff to reach out to the donor. This can be an autopopulated message that returns a pdf and emails it to the owner? 
+        "Dear ${lastName} family, your ${species} ${petName}'s recent blood donation was used to facilitate the care of ${recipientName}'s ${recipientProblem}
+        ${recipientProblemInformation} <- This can be a blurb from a database. ITP or immune mediated thrombocytopenia is a disease where the body attacks its own platelets leading to profuse bleeding. ${petName}'s donation was useful in helping ${recipientName} through a crisis. Please accept not only our thanks, but ${recipientName} and ${recipientName}'s family's deepest thanks.
+
+
+5: User roles, only superusers can delete records / inventory? 
+    This should be fleshed out more.
+
+7:  User Feedback: Collect feedback from users, that'll make this list automatic.
+    -[] Implement functionality.
+
+8: An information page? A way to ... communicate with owners, a like - hey, here's what we collect, and here's ${recipientProblem} in a list that we usually collect for. 
+
+6: ezyVet / Vet EMR integration.
+
+
+Contact / Database acceptance form
+
+
+
+
+How to set up Tailwind CSS for React:
+
+1. npm create vite@latest my_vite_project
+
+-------------------------------------------------------------------
+
+2. cd my_vite_project
+
+-------------------------------------------------------------------
+
+3. npm install -D tailwindcss
+
+-------------------------------------------------------------------
+
+4. npm install postcss autoprefixer
+
+-------------------------------------------------------------------
+
+5. npx tailwindcss init -p
+
+The previous command will create the following files:
+a. tailwind.config.js
+b. postcss.config.js
+
+-------------------------------------------------------------------
+
+6. Add this code to your tailwind.config.js file
+
+   module.exports = {
+
+   content: [
+     "./src/**/*.{js,jsx,ts,tsx}"
+   ],
+
+   theme: {
+     extend: {},
+   },
+   plugins: [],
+ }
+
+-------------------------------------------------------------------
+
+7. Add this code (tailwind directives) to your *index.css* file:
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+-------------------------------------------------------------------
+
+8. Once you are all done you can check out this documentation on how to implement it! (similar to bootstrap)
+ 
+https://tailwindcss.com/docs/utility-first
