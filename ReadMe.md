@@ -28,8 +28,8 @@ Built with:
 
 ## To-Do
 
-- [ ] Finish migrating from Bootstrap to TailwindCSS.
-- [ ] Refactor the inventory list.
+- [ x ] Finish migrating from Bootstrap to TailwindCSS.
+- [ x ] Refactor the inventory list.
   - [ ] Implement advanced search capabilities.
   - [ ] Ensure accurate representation and updates for inventory items.
 
@@ -39,5 +39,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Contact
 
-[Your Name] - [dockral@gmail.com]
+[Name] - [dockral@gmail.com]
 Project Link: https://github.com/[Islenna]/blood-finder"# bloodbank" 
