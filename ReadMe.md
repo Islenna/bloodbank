@@ -7,10 +7,10 @@ Built with:
 - Express.js
 - React.js
 - Node.js
-- TailwindCSS (Migration in progress from Bootstrap)
+- TailwindCSS
 
 
-## Features & Technologies
+## ✨ Features & Technologies
 
 - **axios**: For making HTTP requests.
 - **Vite**: A build tool that significantly improves the frontend development experience.
@@ -19,19 +19,19 @@ Built with:
 - **Environment Variables**: The project utilizes `.env` variables for confidential configurations.
 
 
-## Setup & Installation
+## 🚀 Setup & Installation
 
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/your-github-username/blood-finder.git
+   git clone https://github.com/your-github-username/bloodbank.git
 
 ## To-Do
 
-- [ x ] Finish migrating from Bootstrap to TailwindCSS.
-- [ x ] Refactor the inventory list.
-  - [ ] Implement advanced search capabilities.
-  - [ ] Ensure accurate representation and updates for inventory items.
+- [ ] Implement advanced search capabilities.
+- [ ] Ensure accurate representation and updates for inventory items.
+- [ ] Complete footer.
+- [ ] Connect the suggestions box appropriately.
 
 ## License
 
@@ -40,4 +40,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Contact
 
 [Name] - [dockral@gmail.com]
-Project Link: https://github.com/[Islenna]/blood-finder"# bloodbank" 
+Project Link: https://github.com/[Islenna]/bloodbank"# bloodbank" 
