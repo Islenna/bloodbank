@@ -17,6 +17,9 @@ Built with:
 - **react-router-dom**: Used for routing in the React application.
 - **TailwindCSS**: A utility-first CSS framework. Note: The migration from Bootstrap to Tailwind is still ongoing.
 - **Environment Variables**: The project utilizes `.env` variables for confidential configurations.
+- **Blood Inventory Management**: Easily manage and track blood resources.
+- **Advanced Search**: Find specific blood types and donors efficiently.
+- **Responsive Design**: Ensure a seamless experience on various devices.
 
 
 ## 🚀 Setup & Installation
@@ -24,7 +27,30 @@ Built with:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/your-github-username/bloodbank.git
+   git clone https://github.com/Islenna/bloodbank.git
+   ```
+
+2. **Install Dependencies**
+
+   ```bash
+   # Navigate to the project folder
+   cd bloodbank
+
+   # Install server dependencies
+   npm install
+
+   # Navigate to the client folder
+   cd client
+
+   # Install client dependencies
+   npm install
+   ```
+
+3. **Set Environment Variables**
+
+   Create a `.env` file in the project's root directory and set your confidential configurations.
+   ```
+
 
 ## To-Do
 
@@ -32,6 +58,8 @@ Built with:
 - [ ] Ensure accurate representation and updates for inventory items.
 - [ ] Complete footer.
 - [ ] Connect the suggestions box appropriately.
+- [ ] Security check
+- [ ] Database cleanup
 
 ## License
 
@@ -40,4 +68,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Contact
 
 [Name] - [dockral@gmail.com]
-Project Link: https://github.com/[Islenna]/bloodbank"# bloodbank" 
+Project Link: https://github.com/Islenna/bloodbank"# bloodbank" 
