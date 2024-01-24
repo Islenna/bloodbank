@@ -1,4 +1,4 @@
-const { authenticate } = require('../config/jwt.config');
+const {authenticate} = require('../config/jwt.config');
 const PetController = require('../controllers/pet.controller');
 
 module.exports = (app) => {

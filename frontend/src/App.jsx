@@ -28,7 +28,8 @@ import Footer from './components/Footer/Footer'
 import Suggestions from './components/Suggestions/Suggestions';
 import Contact from './components/Footer/FooterButtons/Contact';
 import { useAuth } from './context/AuthContext';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the default styles
 
 function App() {
 
@@ -61,6 +62,7 @@ function App() {
         <Route path="/suggestions" element={<Suggestions />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+      <ToastContainer />
       <Footer />
 
     </div>

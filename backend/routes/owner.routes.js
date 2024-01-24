@@ -1,5 +1,5 @@
+const {authenticate} = require('../config/jwt.config');
 const OwnerController = require('../controllers/owner.controller');
-const { authenticate } = require('../config/jwt.config');
 
 module.exports = (app) => {
     

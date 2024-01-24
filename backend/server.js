@@ -12,6 +12,7 @@ require('./routes/owner.routes')(app);
 require('./routes/pet.routes')(app);
 require('./routes/user.routes')(app);
 require('./routes/inventory.routes')(app);
+require('./routes/suggestion.routes')(app);
 app.listen(process.env.DB_PORT, () => {
     console.log("Server's up.")
 })
