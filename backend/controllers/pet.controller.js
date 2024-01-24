@@ -21,16 +21,11 @@ module.exports.getStrayPets = (req, res) => {
         });
 };
 
-
-
 module.exports.deleteByOwner = (req, res) => {
     Pet.deleteMany({ owner: req.params.id })
         .then(deleteConfirmation => res.json(deleteConfirmation))
         .catch(err => res.json(err));
 }
-
-
-
 
 module.exports.getAll = (req, res) => {
     Pet.find({})
@@ -45,7 +40,6 @@ module.exports.getOne = (req, res) => {
         })
         .catch(err => res.json(err));
 };
-
 
 module.exports.updatePet = (request, response) => {
     Pet.findOneAndUpdate({ _id: request.params.id }, request.body, { new: true })

@@ -122,7 +122,7 @@ export default function InventoryForm() {
                         {formErrors.bloodSource && <div className="text-danger">{formErrors.bloodSource}</div>}
                     </div>
 
-                    <label htmlFor="productType" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Home Clinic:</label>
+                    <label htmlFor="productType" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Type:</label>
                     <select id="productType"
                         value={productType}
                         onChange={(e) => setProductType(e.target.value)}

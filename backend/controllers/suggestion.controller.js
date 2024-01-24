@@ -13,9 +13,36 @@ const createSuggestion = async (req, res) => {
     }
 };
 
-// Other functions like getSuggestions, deleteSuggestion, etc.
+const getAllSuggestion = (req, res) => {
+    Suggestion.find({})
+        .then(suggestions => res.json(suggestions))
+        .catch(err => res.json(err));
+}
+
+const getOneSuggestion = (req, res) => {
+    Suggestion.findOne({ _id: req.params.id })
+        .then(suggestion => {
+            res.json(suggestion);
+        })
+        .catch(err => res.json(err));
+}
+
+const updateSuggestion = (req, res) => {
+    Suggestion.findOneAndUpdate({ _id: req.params.id }, request.body, {new: true })
+        .then(updatedSuggestion => res.json(updatedSuggestion))
+        .catch(err => res.json(err));
+}
+
+const deleteSuggestion = (req, res) => {
+    Suggestion.deleteOne({ _id: req.params.id})
+        .then(deleteConfirmation => res.json(deleteConfirmation))
+        .catch(err => res.json(err));
+}
 
 module.exports = {
     createSuggestion,
-    // other functions
+    getAllSuggestion,
+    getOneSuggestion,
+    updateSuggestion,
+    deleteSuggestion
 };
