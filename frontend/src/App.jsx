@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, useNavigate as navigate } from 
 import axios from 'axios';
 import './App.css';
 
+import { AuthProvider } from './context/AuthContext';
 import UserList from './components/LogAndReg/UserList';
 import InventoryList from './components/Inventory/InventoryList';
 import InventoryForm from './components/Inventory/InventoryForm';
@@ -28,24 +29,26 @@ function App() {
 
   return (
     <div>
-      <CustomNavbar />
-      <Routes>
-        <Route path="/" element={<Log />} />
-        <Route path="/reg" element={<Reg />} />
-        <Route path="/bloodfinder" element={<BloodFinder />} />
-        <Route path="/users" element={<UserList />} />
-        <Route path="/inventory" element={<InventoryList />} />
-        <Route path="/inventory/new" element={<InventoryForm />} />
-        <Route path="/inventory/:id" element={<InventoryCard />} />
-        <Route path="/inventory/edit/:id" element={<InventoryEdit />} />
-        <Route path="/inventory/:id/consume" element={<InventoryConsume />} />
-        <Route path="/inventory/consumed" element={<ConsumedList />} />
-        <Route path="/consumed/:id" element={<ConsumedCard />} />
-        <Route path="/suggestions" element={<Suggestions />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
-      <ToastContainer />
-      <Footer />
+      <AuthProvider>
+        <CustomNavbar />
+        <Routes>
+          <Route path="/" element={<Log />} />
+          <Route path="/reg" element={<Reg />} />
+          <Route path="/bloodfinder" element={<BloodFinder />} />
+          <Route path="/users" element={<UserList />} />
+          <Route path="/inventory" element={<InventoryList />} />
+          <Route path="/inventory/new" element={<InventoryForm />} />
+          <Route path="/inventory/:id" element={<InventoryCard />} />
+          <Route path="/inventory/edit/:id" element={<InventoryEdit />} />
+          <Route path="/inventory/:id/consume" element={<InventoryConsume />} />
+          <Route path="/inventory/consumed" element={<ConsumedList />} />
+          <Route path="/consumed/:id" element={<ConsumedCard />} />
+          <Route path="/suggestions" element={<Suggestions />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+        <ToastContainer />
+        <Footer />
+      </AuthProvider>
 
     </div>
   );

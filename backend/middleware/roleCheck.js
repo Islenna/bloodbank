@@ -1,18 +1,10 @@
-const roleCheck = {
-    isAdmin: (req, res, next) => {
-        if (req.user && req.user.role === 'admin') {
-            return next();
-        } else {
-            res.status(403).json({ message: "Access denied. Admins only." });
-        }
-    },
-    isManager: (req, res, next) => {
-        if (req.user && (req.user.role === 'admin' || req.user.role === 'manager')) {
-            return next();
-        } else {
-            res.status(403).json({ message: "Access denied. Managers only." });
-        }
-    },
-    };
+module.exports = {
+    checkRole: (roles) => (req, res, next) => {
 
-module.exports = roleCheck;
+        if (req.user && roles.includes(req.user.role)) {
+            return next();
+        } else {
+            res.status(403).json({ message: "Access denied. You don't have the required permissions." });
+        }
+    }
+};

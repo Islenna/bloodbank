@@ -1,6 +1,6 @@
 const {authenticate} = require('../config/jwt.config');
 const UserController = require('../controllers/user.controller');
-const {isAdmin} = require('../middleware/rolecheck');
+const { checkRole } = require('../middleware/roleCheck');
 
 module.exports = (app) => {
     // User routes
@@ -8,6 +8,6 @@ module.exports = (app) => {
     app.post('/api/users/logout', UserController.logout);
     app.post('/api/users/register', UserController.register);
     app.get('/api/users/loggedin', UserController.getLoggedInUser);
-    app.get('/api/users', authenticate, isAdmin, UserController.getAll);
-    app.delete('/api/users/:id', authenticate,isAdmin, UserController.delete);
+    app.get('/api/users', authenticate, checkRole(['admin']), UserController.getAll);
+    app.delete('/api/users/:id', authenticate,checkRole(['admin']), UserController.delete);
 }

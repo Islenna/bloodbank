@@ -2,14 +2,14 @@ const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { get } = require("mongoose");
-const email = process.env.VITE_REACT_APP_CONTACT_EMAIL
 
 module.exports = {
     register: (req, res) => {
         User.create(req.body)
             .then(user => {
                 const userToken = jwt.sign({
-                    id: user._id
+                    id: user._id,
+                    role: user.role
                 }, process.env.JWT_SECRET);
 
                 res
@@ -39,7 +39,8 @@ module.exports = {
             }
     
             const userToken = jwt.sign({
-                id: user._id
+                id: user._id,
+                role: user.role
             }, process.env.JWT_SECRET);
     
             res
@@ -54,20 +55,11 @@ module.exports = {
     },
 
     getLoggedInUser: (req, res) => {
-        const decodedJWT = jwt.decode(req.cookies.usertoken, { complete: true });
-
-        if (!decodedJWT || !decodedJWT.payload) {
-            return res.status(401).json({ message: 'User not authenticated' });
-        }
-
-        User.findById(decodedJWT.payload.id)
+        User.findById(req.user.id)
             .then(user => res.json(user))
             .catch(err => res.json(err));
     },
-    logout: (req, res) => {
-        res.clearCookie('usertoken');
-        res.sendStatus(200);
-    },
+    
 
     getAll: (req, res) => {
         User.find()
@@ -79,6 +71,12 @@ module.exports = {
         User.findByIdAndDelete(req.params.id)
             .then(result => res.json(result))
             .catch(err => res.json(err));
+    },
+
+    logout: (req, res) => {
+        res.clearCookie('usertoken');
+        res.sendStatus(200);
     }
+
 
 };

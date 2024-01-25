@@ -7,7 +7,8 @@ module.exports.authenticate = (req, res, next) => {
             console.error("JWT Verification Error:", err);
             res.status(401).json({ verified: false });
         } else {
+            req.user = payload; // { id: user._id, username: user.username, role: user.role }
             next();
         }
     });
-}
+};
