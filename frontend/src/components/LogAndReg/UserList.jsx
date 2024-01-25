@@ -10,8 +10,6 @@ export default function UserList() {
         axios
             .get('http://localhost:8000/api/users', { withCredentials: true })
             .then((res) => {
-                
-                console.log(res.data);
                 setUsers(res.data);
             })
             .catch((err) => {

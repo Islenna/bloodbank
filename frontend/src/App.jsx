@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate as navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 
@@ -19,7 +19,6 @@ import CustomNavbar from './components/Header/CustomNavbar';
 import Footer from './components/Footer/Footer'
 import Suggestions from './components/Suggestions/Suggestions';
 import Contact from './components/Footer/FooterButtons/Contact';
-import { useAuth } from './context/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the default styles
 

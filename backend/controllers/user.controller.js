@@ -42,12 +42,18 @@ module.exports = {
                 id: user._id,
                 role: user.role
             }, process.env.JWT_SECRET);
-    
             res
                 .cookie("usertoken", userToken, {
                     httpOnly: true
                 })
-                .json({ msg: "success!" });
+                res.json({
+                    msg: "success!",
+                    user: {
+                        email: user.email,
+                        role: user.role
+                    },
+                    token: userToken
+                });
         } catch (err) {
             console.error('Error during login:', err);
             res.status(500).json({ error: 'Server error' });

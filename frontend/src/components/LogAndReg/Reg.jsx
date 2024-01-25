@@ -7,7 +7,7 @@ import logo from '../../assets/logo.png';
 
 
 function Reg() {
-
+    const { login } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const [regEmail, setRegEmail] = useState('');

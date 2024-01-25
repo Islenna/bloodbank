@@ -2,35 +2,35 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
+import { useAuth } from '../../context/AuthContext';
 
 function Log() {
+    const { login } = useAuth();
     const navigate = useNavigate();
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
 
     const loginHandler = (e) => {
         e.preventDefault();
-    
         const payload = {
             email: loginEmail,
             password: loginPassword,
         };
-    
-        axios
-            .post('http://localhost:8000/api/users/login', payload, { withCredentials: true })
+
+
+        axios.post('http://localhost:8000/api/users/login', payload, { withCredentials: true })
             .then((res) => {
-                // Assuming res.data.token contains the JWT token.
-                if(res.data && res.data.token) {
-                    // Store received token in cookies
+                if (res.data && res.data.token) {
                     document.cookie = `usertoken=${res.data.token};path=/;`;
+                    login(res.data.user.email, res.data.user.role); // Set user's email and role
+                    navigate('/bloodfinder');
                 }
-                navigate('/bloodfinder');
             })
             .catch((err) => {
                 console.log(err);
             });
-    };
-    
+    }
+
 
     return (
         <section className="bg-gray-50 dark:bg-gray-900">

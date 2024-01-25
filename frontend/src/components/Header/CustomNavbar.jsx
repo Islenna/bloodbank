@@ -6,16 +6,16 @@ import logo from '../../assets/logo.png';
 
 export default function CustomNavbar(props) {
     const navigate = useNavigate();
-    const { userEmail, isLoggedIn, setUserEmail, setIsLoggedIn } = useAuth();
+    const { userRole, logout } = useAuth();
 
+    console.log("Current user userRole:", userRole);
 
     const handleLogout = (e) => {
         e.preventDefault();
         axios
             .post('http://localhost:8000/api/users/logout', null, { withCredentials: true })
             .then(() => {
-                setUserEmail('');
-                setIsLoggedIn(false);
+                logout();
                 navigate('/');
             })
             .catch((err) => {
@@ -27,7 +27,7 @@ export default function CustomNavbar(props) {
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link to="/bloodfinder" className="flex items-center">
-                <img className="w-8 h-8 mr-2" src={logo} alt="logo" />
+                    <img className="w-8 h-8 mr-2" src={logo} alt="logo" />
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Blood Finder</span>
                 </Link>
                 <button
@@ -44,15 +44,31 @@ export default function CustomNavbar(props) {
                 </button>
                 <div className="hidden w-full md:block md:w-auto" id="navbar-default">
                     <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                        {/* Common link for all users */}
                         <li>
-                            <a href="/bloodfinder" className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Get Blood</a>
+                            <a href="/bloodfinder" className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500">Get Blood</a>
                         </li>
-                        <li>
-                            <a href="/users" className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500">User Management</a>
-                        </li>
-                        <li>
-                            <Link to="/inventory" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Inventory Management</Link>
-                        </li>
+
+                        {/* Conditionally render based on user's userRole */}
+                        {userRole === 'admin' && (
+                            <>
+                                <li>
+                                    <a href="/users" className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500">User Management</a>
+                                </li>
+                                {/* Other admin-specific links */}
+                            </>
+                        )}
+
+                        {['admin', 'manager'].includes(userRole) && (
+                            <>
+                                <li>
+                                    <Link to="/inventory" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Inventory Management</Link>
+                                </li>
+                                {/* Other links for admin and manager */}
+                            </>
+                        )}
+
+                        {/* Common links for all roles */}
                         <li>
                             <Link to="/suggestions" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Suggestions</Link>
                         </li>
