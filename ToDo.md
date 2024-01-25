@@ -1,9 +1,9 @@
-- [ ] Add Date Ordered
-- [ ] Fix onHold display for inventory
+- [ x ] Add Date Ordered and received
+- [ x ] Fix onHold display for inventory
 - [ ] Implement Search for inventory
 - [ ] Add distributor to inventory list and analytics
-- [ ] Add Donor ID to inventory list and analytics
-- [ ] Remove / Hide Donor System
+- [ x ] Add Donor ID to inventory list and analytics
+- [ x ] Remove / Hide Donor System
 - [ ] Add user controls
 - [ ] Modularization
 - [ ] Modals?

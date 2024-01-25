@@ -5,6 +5,8 @@ const OnHandSchema = new mongoose.Schema({
     unitSize: { type: String },
     bloodType: { type: String },
     productType: { type: String },
+    dateOrdered: { type: Date },
+    dateReceived: { type: Date },
     expirationDate: { type: Date },
     crossmatchHistory: { type: String },
     homeClinic: { type: String },

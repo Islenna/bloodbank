@@ -43,7 +43,6 @@ function InventoryList() {
             const expirationCondition = selectedFilters.expiration ? item.expiration.includes(selectedFilters.expiration) : true;
             const bloodTypeCondition = selectedFilters.bloodType ? item.bloodType.toLowerCase().includes(selectedFilters.bloodType.toLowerCase()) : true;
             const searchTermCondition = searchTerm ? item.productType.toLowerCase().includes(searchTerm.toLowerCase()) : true;
-
             return homeClinicCondition && productTypeCondition && unitSizeCondition && bloodSourceCondition && expirationCondition && bloodTypeCondition && searchTermCondition;
 
         });
@@ -67,12 +66,7 @@ function InventoryList() {
             .catch((err) => {
                 console.log('Error fetching inventory data:', err);
             });
-    }, [inventory, selectedFilters, searchTerm]); // Removed applyFilters from dependency array
-
-
-
-
-
+    }, [inventory, selectedFilters, searchTerm]);
 
     return (
         <div className="text-center">
@@ -109,7 +103,9 @@ function InventoryList() {
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
                                         <th scope="col" className="px-4 py-3">Product Type</th>
-                                        <th scope="col" className="px-4 py-3">Location</th>
+                                        <th scope="col" className="px-4 py-3">Donor ID</th>
+                                        <th scope="col" className="px-4 py-3">Date Ordered</th>
+                                        <th scope="col" className="px-4 py-3">Date Received</th>
                                         <th scope="col" className="px-4 py-3">Unit Size</th>
                                         <th scope="col" className="px-4 py-3">Vendor</th>
                                         <th scope="col" className="px-4 py-3">Expiration Date</th>
@@ -120,12 +116,26 @@ function InventoryList() {
                                     {currentItems.length > 0 ? null : <tr><td className="px-4 py-3">No inventory items found.</td></tr>}
                                     {currentItems.map((item) => {
                                         const expiringSoon = isExpiringSoon(item.expirationDate);
+                                        const formattedDateOrdered = new Date(item.dateOrdered).toLocaleDateString('en-US', {
+                                            month: 'numeric',
+                                            day: 'numeric',
+                                            year: 'numeric'
+                                        });
+                                        const formattedDateReceived = new Date(item.dateReceived).toLocaleDateString('en-US', {
+                                            month: 'numeric',
+                                            day: 'numeric',
+                                            year: 'numeric'
+                                        });
+                                        const onHoldClass = item.onHold ? "text-yellow-500" : "text-green-500";
+
 
                                         return (
                                             <tr key={item._id} className="table-row border-b dark:border-gray-700"
                                                 onClick={() => navigate(`/inventory/${item._id}`)}>
                                                 <td className="px-4 py-3">{item.productType}</td>
-                                                <td className="px-4 py-3">{item.homeClinic}</td>
+                                                <td className={`px-4 py-3 ${onHoldClass}`}>{item.donorID}</td>
+                                                <td className="px-4 py-3">{formattedDateOrdered}</td>
+                                                <td className="px-4 py-3">{formattedDateReceived}</td>
                                                 <td className="px-4 py-3">{item.unitSize}</td>
                                                 <td className="px-4 py-3">{item.bloodSource}</td>
                                                 <td className={expiringSoon ? "px-4 py-3 highlight" : "px-4 py-3"}>

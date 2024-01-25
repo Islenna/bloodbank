@@ -85,44 +85,6 @@ function BloodFinder() {
 
                                 </form>
                                 <div>
-                                    <h2>Donors</h2>
-                                    {pets.length > 0 ? (
-                                        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                                <tr>
-                                                    <th scope="col" className="px-6 py-4 text-center">
-                                                        Owner
-                                                    </th>
-                                                    <th scope="col" className="px-6 py-4 text-center">
-                                                        Name
-                                                    </th>
-                                                    <th scope="col" className="px-6 py-4 text-center">
-                                                        Blood Type
-                                                    </th>
-                                                    <th scope="col" className="px-6 py-4 text-center">
-                                                        Actions
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {pets.map((pet) => (
-                                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                                                        key={pet._id}>
-                                                        <td className="px-6 py-4 text-center">{pet.petType}</td>
-                                                        <td className="px-6 py-4 text-center">{pet.petName}</td>
-                                                        <td className="px-6 py-4 text-center">{pet.bloodType}</td>
-                                                        <td className="px-6 py-4 text-center">
-                                                            <button type="button" onClick={() => navigate(`/pets/${pet._id}`)} className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                                View
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    ) : (
-                                        <p>No pets found.</p>
-                                    )}
 
                                     <h2>Inventory</h2>
                                     <p style={{ color: 'lightgray' }}>Total Volume: {calculateTotalVolume(matchingBlood)} mL</p>

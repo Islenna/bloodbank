@@ -8,8 +8,6 @@ app.use(cors({ credentials: true, origin: process.env.DB_ORIGIN }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 require('./config/mongoose.config');
-require('./routes/owner.routes')(app);
-require('./routes/pet.routes')(app);
 require('./routes/user.routes')(app);
 require('./routes/inventory.routes')(app);
 require('./routes/suggestion.routes')(app);
