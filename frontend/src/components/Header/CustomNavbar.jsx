@@ -8,7 +8,6 @@ export default function CustomNavbar(props) {
     const navigate = useNavigate();
     const { userRole, logout } = useAuth();
 
-    console.log("Current user userRole:", userRole);
 
     const handleLogout = (e) => {
         e.preventDefault();

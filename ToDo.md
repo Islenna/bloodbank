@@ -1,10 +1,11 @@
 - [ x ] Add Date Ordered and received
 - [ x ] Fix onHold display for inventory
 - [ ] Implement Search for inventory
-- [ ] Add distributor to inventory list and analytics
+- [ x ] Add distributor to inventory list and analytics
 - [ x ] Add Donor ID to inventory list and analytics
 - [ x ] Remove / Hide Donor System
-- [ ] Add  role-based access control(RBAC)s.
+- [ x ] Add  role-based access control(RBAC)s.
+    - [ x ] Selecting user management as admin reverts navbar to user level 
 - [ ] Modularization
 - [ ] Modals?
 - [ ] Add Toasts

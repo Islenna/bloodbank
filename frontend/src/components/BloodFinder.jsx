@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { isExpiringSoon } from '../utils/utils'
@@ -10,6 +11,7 @@ function BloodFinder() {
     const [matchingBlood, setMatchingBlood] = useState([]);
     const { id } = useParams();
     const navigate = useNavigate();
+    const { userRole } = useAuth();
 
     const searchPets = (e) => {
         e.preventDefault();
@@ -42,7 +44,6 @@ function BloodFinder() {
         }
         return totalVolume;
     };
-
 
     return (
 

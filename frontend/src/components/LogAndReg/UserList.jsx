@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 export default function UserList() {
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
+    const { userRole } = useAuth();
+
 
     useEffect(() => {
         axios

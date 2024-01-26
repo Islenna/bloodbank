@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import FilterButton from './FilterButton/FilterButton';
 import { isExpiringSoon } from '../../utils/utils';
+import { debounce } from '../../utils/debounce';
 
 
 function InventoryList() {
@@ -33,40 +34,63 @@ function InventoryList() {
         pageNumbers.push(i);
     }
 
+    //Filtering
 
-    const applyFilters = () => {
-        const result = inventory.filter(item => {
-            const homeClinicCondition = selectedFilters.homeClinic ? item.homeClinic.toLowerCase().includes(selectedFilters.homeClinic.toLowerCase()) : true;
-            const productTypeCondition = selectedFilters.productType ? item.productType.toLowerCase().includes(selectedFilters.productType.toLowerCase()) : true;
-            const unitSizeCondition = selectedFilters.unitSize ? item.unitSize.toLowerCase().includes(selectedFilters.unitSize.toLowerCase()) : true;
-            const bloodSourceCondition = selectedFilters.bloodSource ? item.bloodSource.toLowerCase().includes(selectedFilters.bloodSource.toLowerCase()) : true;
-            const expirationCondition = selectedFilters.expiration ? item.expiration.includes(selectedFilters.expiration) : true;
-            const bloodTypeCondition = selectedFilters.bloodType ? item.bloodType.toLowerCase().includes(selectedFilters.bloodType.toLowerCase()) : true;
-            const searchTermCondition = searchTerm ? item.productType.toLowerCase().includes(searchTerm.toLowerCase()) : true;
-            return homeClinicCondition && productTypeCondition && unitSizeCondition && bloodSourceCondition && expirationCondition && bloodTypeCondition && searchTermCondition;
-
-        });
-
-        setFilteredInventory(result);
-    }
-
+    const debouncedApplyFilters = debounce(() => {
+        applyFilters();
+    }, 300);
 
     const handleFilterChange = (newFilters) => {
         setSelectedFilters(newFilters);
-        applyFilters();
+        debouncedApplyFilters();
+    };
+    const matchesFilter = (item, filterTerm, property) => {
+        return filterTerm ? item[property].toString().toLowerCase().includes(filterTerm.toLowerCase()) : true;
     };
 
+    const handleSearchChange = (e) => {
+        const value = e.target.value;
+        setSearchTerm(value);
+        debouncedApplyFilters();
+    };
+    
+    const applyFilters = () => {
+        const result = inventory.filter(item => {
+            // If searchTerm is empty, it should not filter out anything
+            const searchTermCondition = searchTerm
+                ? item.productType.toLowerCase().includes(searchTerm.toLowerCase())
+                : true;
+
+            // Apply other filter conditions
+            return matchesFilter(item, selectedFilters.homeClinic, 'homeClinic') &&
+                // ... other filter conditions
+                searchTermCondition;
+        });
+        console.log('Inventory:', inventory);
+        console.log('Filtered Inventory:', filteredInventory);
+        console.log('Search Term:', searchTerm);
+        console.log('Selected Filters:', selectedFilters);
+        
+
+        setFilteredInventory(result);
+    };
+
+
     useEffect(() => {
-        axios
-            .get('http://localhost:8000/api/inventory/active', { withCredentials: true })
+        axios.get('http://localhost:8000/api/inventory/active', { withCredentials: true })
             .then((res) => {
                 setInventory(res.data);
-                applyFilters();
+                setFilteredInventory(res.data); // Set filtered inventory to the full list initially
             })
             .catch((err) => {
-                console.log('Error fetching inventory data:', err);
+                console.error('Error fetching inventory data:', err);
             });
-    }, [inventory, selectedFilters, searchTerm]);
+    }, []);
+
+    useEffect(() => {
+        applyFilters();
+    }, [selectedFilters]);
+
 
     return (
         <div className="text-center">
@@ -83,8 +107,15 @@ function InventoryList() {
                                                 <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
                                             </svg>
                                         </div>
-                                        <input type="text" id="simple-search" onChange={(e) => setSearchTerm(e.target.value)}
-                                            value={searchTerm} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search" required="" />
+                                        <input
+                                            type="text"
+                                            id="simple-search"
+                                            onChange={handleSearchChange}
+                                            value={searchTerm}
+                                            className="focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="Search"
+                                            required=""
+                                        />
                                     </div>
                                 </form>
                             </div>
