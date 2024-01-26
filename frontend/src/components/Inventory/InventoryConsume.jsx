@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function InventoryConsume({ totalVolume }) {
     const { id } = useParams();
@@ -58,11 +59,12 @@ export default function InventoryConsume({ totalVolume }) {
             .put(`http://localhost:8000/api/inventory/consume/${id}`, consumptionData, { withCredentials: true })
             .then((res) => {
                 setItemData(res.data);
-                console.log('Item consumed successfully:', res.data);
+                toast.success('Blood consumed successfully!');
                 navigate('/bloodfinder');
             })
             .catch((err) => {
                 console.error('Error consuming item:', err);
+                toast.error('Error consuming blood!');
             });
     };
 

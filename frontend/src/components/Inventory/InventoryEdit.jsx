@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import { toast } from 'react-toastify';
 
 export default function InventoryEditForm() {
     const { id } = useParams();
+    const { userRole } = useAuth();
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -48,9 +51,11 @@ export default function InventoryEditForm() {
             .then((res) => {
                 console.log('Response:', res);
                 navigate(`/inventory/${id}`);
+                toast.success('Inventory updated successfully!');
             })
             .catch((err) => {
                 console.log('Error:', err);
+                toast.error('Error updating inventory.');
             });
     };
 
@@ -59,11 +64,12 @@ export default function InventoryEditForm() {
         axios
             .delete(`http://localhost:8000/api/inventory/${id}`, { withCredentials: true })
             .then((res) => {
-                console.log('Response:', res);
+                toast.success('Inventory deleted successfully!');
                 navigate('/inventory');
             })
             .catch((err) => {
                 console.log('Error:', err);
+                toast.error('Error deleting inventory.');
             });
     };
 
@@ -131,14 +137,15 @@ export default function InventoryEditForm() {
                     >
                         Update Inventory
                     </button>
-                    <button
+                    {(userRole === 'admin' || userRole === 'manager') && (
+                        <button
                         type="submit"
                         onClick= {handleDelete}
                         className="text-white bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-red-600 dark:focus:ring-red-900"
-                    >
+                        >
                         Delete Inventory
                     </button>
-                    <h3>Only delete inventory that was entered incorrectly.</h3>
+                    )}
                 </form>
             </div>
         </div>

@@ -1,5 +1,6 @@
 const {authenticate} = require('../config/jwt.config');
 const BloodOnHandController = require('../controllers/onHand.controller');
+const { checkRole } = require('../middleware/roleCheck');
 
 module.exports = (app) => {
     //Inventory routes

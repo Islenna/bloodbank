@@ -1,6 +1,6 @@
 - [ x ] Add Date Ordered and received
 - [ x ] Fix onHold display for inventory
-- [ ] Implement Search for inventory
+- [ x ] Implement Search for inventory
 - [ x ] Add distributor to inventory list and analytics
 - [ x ] Add Donor ID to inventory list and analytics
 - [ x ] Remove / Hide Donor System
@@ -8,4 +8,4 @@
     - [ x ] Selecting user management as admin reverts navbar to user level 
 - [ ] Modularization
 - [ ] Modals?
-- [ ] Add Toasts
+- [ x ] Add Toasts

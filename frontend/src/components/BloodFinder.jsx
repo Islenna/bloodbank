@@ -132,7 +132,6 @@ function BloodFinder() {
                                             <tbody>
                                                 {matchingBlood.map((blood) => {
                                                     const expiringSoon = isExpiringSoon(blood.expirationDate);
-                                                    console.log(blood.donorID, expiringSoon);
                                                     return (
                                                         <tr className="table-row bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                                                             onClick={() => navigate(`/inventory/${blood._id}`)}
