@@ -8,6 +8,7 @@ module.exports = (app) => {
     app.post('/api/users/logout', UserController.logout);
     app.post('/api/users/register', UserController.register);
     app.get('/api/users/loggedin', UserController.getLoggedInUser);
+    app.patch('/api/users/:id/role', authenticate, checkRole(['admin']), UserController.update);
     app.get('/api/users', authenticate, checkRole(['admin']), UserController.getAll);
     app.delete('/api/users/:id', authenticate,checkRole(['admin']), UserController.delete);
 }

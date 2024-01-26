@@ -79,6 +79,12 @@ module.exports = {
             .catch(err => res.json(err));
     },
 
+    update: (req, res) => {
+        User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+            .then(result => res.json(result))
+            .catch(err => res.json(err));
+    },
+
     logout: (req, res) => {
         res.clearCookie('usertoken');
         res.sendStatus(200);

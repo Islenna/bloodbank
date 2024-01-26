@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import FilterButton from './FilterButton/FilterButton';
 import { isExpiringSoon } from '../../utils/utils';
 import { debounce } from '../../utils/debounce';
@@ -9,6 +10,7 @@ import { debounce } from '../../utils/debounce';
 function InventoryList() {
     const [inventory, setInventory] = useState([]);
     const navigate = useNavigate();
+    const { userRole } = useAuth();
     const navigateToItem = (id) => {
         navigate(`/inventory/${id}`);
     };
@@ -53,24 +55,25 @@ function InventoryList() {
         setSearchTerm(value);
         debouncedApplyFilters();
     };
-    
+
     const applyFilters = () => {
+        // If the search term is cleared, reset the filtered inventory to the full list
+        if (!searchTerm) {
+            setFilteredInventory(inventory);
+            return;
+        }
+
         const result = inventory.filter(item => {
-            // If searchTerm is empty, it should not filter out anything
-            const searchTermCondition = searchTerm
-                ? item.productType.toLowerCase().includes(searchTerm.toLowerCase())
-                : true;
+            // Apply search term to homeClinic
+            const searchTermCondition = item.homeClinic.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                item.donorID.toLowerCase().includes(searchTerm.toLowerCase())
 
             // Apply other filter conditions
             return matchesFilter(item, selectedFilters.homeClinic, 'homeClinic') &&
+                matchesFilter(item, selectedFilters.productType, 'productType') &&
                 // ... other filter conditions
                 searchTermCondition;
         });
-        console.log('Inventory:', inventory);
-        console.log('Filtered Inventory:', filteredInventory);
-        console.log('Search Term:', searchTerm);
-        console.log('Selected Filters:', selectedFilters);
-        
 
         setFilteredInventory(result);
     };
@@ -89,7 +92,7 @@ function InventoryList() {
 
     useEffect(() => {
         applyFilters();
-    }, [selectedFilters]);
+    }, [selectedFilters, searchTerm]);
 
 
     return (
@@ -120,14 +123,16 @@ function InventoryList() {
                                 </form>
                             </div>
                             <FilterButton onFilterChange={handleFilterChange} />
-                            <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                                <button onClick={() => navigate(`/inventory/new`)} type="button" className="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                                    <svg className="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                        <path clipRule="evenodd" fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                                    </svg>
-                                    Add product
-                                </button>
-                            </div>
+                            {(userRole === 'admin' || userRole === 'manager') && (
+                                <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                                    <button onClick={() => navigate(`/inventory/new`)} type="button" className="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                                        <svg className="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path clipRule="evenodd" fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                                        </svg>
+                                        Add product
+                                    </button>
+                                </div>
+                            )}
                         </div>
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">

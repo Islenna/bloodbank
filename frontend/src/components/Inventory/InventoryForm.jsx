@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function InventoryForm() {
 
@@ -64,26 +65,15 @@ export default function InventoryForm() {
     };
 
 
-    const createInventory = (e) => {
+    const createInventory = async (e) => {
         e.preventDefault();
-        console.log('Data to be sent:', {
-            donorID,
-            bloodSource,
-            unitSize,
-            bloodType,
-            dateOrdered,
-            dateReceived,
-            expirationDate,
-            homeClinic,
-            productType
-        });
 
         if (!validateForm()) {
             return;
         }
 
-        axios
-            .post(`http://localhost:8000/api/inventory`, {
+        try {
+            const response = await axios.post(`http://localhost:8000/api/inventory`, {
                 donorID,
                 bloodSource,
                 unitSize,
@@ -93,12 +83,14 @@ export default function InventoryForm() {
                 expirationDate,
                 homeClinic,
                 productType
-            }, { withCredentials: true })
-            .then((res) => {
-                console.log('Response:', res);
-                navigate(`/inventory`);
-            })
-            .catch((err) => console.log('Error:', err));
+            }, { withCredentials: true });
+
+            toast.success("Inventory added successfully");
+            navigate(`/inventory`);
+        } catch (err) {
+            console.error('Error:', err);
+            toast.error("Failed to add inventory");
+        }
     }
 
     return (
@@ -150,7 +142,7 @@ export default function InventoryForm() {
                             </div>
                         </div>
                         <h3>Product Details</h3>
-                        <div class="mb-6">
+                        <div className="mb-6">
                             <label htmlFor="productType" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Type:</label>
                             <select id="productType"
                                 value={productType}
@@ -160,7 +152,7 @@ export default function InventoryForm() {
                                 <option value="pRBC">pRBCs</option>
                                 <option value="FFP">FFP</option>
                                 <option value="FP">FP</option>
-                                <option value="platelets">Platelets</option>
+                                <option value="Platelets">Platelets</option>
                                 <option value="Cryo">Cryoprecipitate</option>
                                 <option value="ALB">Albumin</option>
                                 <option value="HBOC">HBOC</option>
