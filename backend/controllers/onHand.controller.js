@@ -136,6 +136,21 @@ module.exports.getByClinicAndBloodType = (req, res) => {
         });
 };
 
+
+module.exports.bloodSearch = (req, res) => {
+    const { homeClinic, bloodType, productType } = req.params;
+
+    OnHand.find({ homeClinic, bloodType, productType })
+        .then(onHand => {
+            res.json(onHand);
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json(err);
+        });
+};
+
+
 module.exports.transfused = (req, res) => {
     const { id } = req.params;
     const { consumptionType, recipient, patientID, patientName, patientLastName, transferredTo, transferredBy } = req.body;

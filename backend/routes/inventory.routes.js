@@ -10,7 +10,7 @@ module.exports = (app) => {
     app.put('/api/inventory/:id', authenticate, BloodOnHandController.updateBloodOnHand);
     app.delete('/api/inventory/:id', authenticate, BloodOnHandController.delete);
     app.get('/api/inventory/search/:homeClinic', authenticate, BloodOnHandController.getByClinic);
-    app.get('/api/inventory/search/:homeClinic/:bloodType', authenticate, BloodOnHandController.getByClinicAndBloodType);
+    app.get('/api/inventory/search/:homeClinic/:bloodType/:productType', authenticate, BloodOnHandController.bloodSearch);
     app.put('/api/inventory/consume/:id', authenticate, BloodOnHandController.transfused);
     app.put('/api/inventory/notes/:id', authenticate, BloodOnHandController.updateCrossmatchHistory);
 
