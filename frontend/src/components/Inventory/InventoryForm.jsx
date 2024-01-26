@@ -39,6 +39,10 @@ export default function InventoryForm() {
         }
         if (!unitSize) {
             errors.unitSize = 'Unit Size is required';
+        } else if (!/^\d+$/.test(unitSize)) {
+            errors.unitSize = 'Unit Size must be a positive number and contain no letters';
+        } else if (parseInt(unitSize) <= 0) {
+            errors.unitSize = 'Unit Size must be greater than zero';
         }
         if (!bloodType) {
             errors.bloodType = 'Blood Type is required';
@@ -157,20 +161,20 @@ export default function InventoryForm() {
                                 <option value="ALB">Albumin</option>
                                 <option value="HBOC">HBOC</option>
                             </select>
+                            {formErrors.productType && <div className="text-danger">{formErrors.productType}</div>}
+                        </div>
 
+                        <div>
                             <label htmlFor="unitSize" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Unit Size:</label>
-                            <select id="unitSize"
+                            <input
+                                type="text"
+                                id="unitSize"
                                 value={unitSize}
                                 onChange={(e) => setUnitSize(e.target.value)}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="">Select a Unit Size</option>
-                                <option value="12mL">12mL</option>
-                                <option value="50mL">50mL</option>
-                                <option value="125mL">125mL</option>
-                                <option value="150mL">150mL</option>
-                                <option value="250mL">250mL</option>
-                                {formErrors.unitSize && <div className="text-danger">{formErrors.unitSize}</div>}
-                            </select>
+                                placeholder="Enter unit size in mL"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            />
+                            {formErrors.unitSize && <div className="text-danger">{formErrors.unitSize}</div>}
 
                             <label htmlFor="bloodType" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Unit Size:</label>
                             <select id="bloodType"

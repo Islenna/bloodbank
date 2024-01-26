@@ -172,7 +172,7 @@ function InventoryList() {
                                                 <td className={`px-4 py-3 ${onHoldClass}`}>{item.donorID}</td>
                                                 <td className="px-4 py-3">{formattedDateOrdered}</td>
                                                 <td className="px-4 py-3">{formattedDateReceived}</td>
-                                                <td className="px-4 py-3">{item.unitSize}</td>
+                                                <td className="px-4 py-3">{item.unitSize} mL</td>
                                                 <td className="px-4 py-3">{item.bloodSource}</td>
                                                 <td className={expiringSoon ? "px-4 py-3 highlight" : "px-4 py-3"}>
                                                     {new Date(item.expirationDate).toLocaleDateString('en-US', {

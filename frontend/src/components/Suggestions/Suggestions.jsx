@@ -14,7 +14,7 @@ export default function Suggestions() {
         event.preventDefault(); // Prevent the default form submission behavior
 
         try {
-            await axios.post('http://localhost:8000/api/send-email', payload);
+            await axios.post('http://localhost:8000/api/suggestion', payload);
             // Handle success
             toast.success('Suggestion sent successfully', {
                 autoClose: 3000
