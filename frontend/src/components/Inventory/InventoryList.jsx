@@ -177,6 +177,7 @@ function InventoryList() {
                                                 <td className={expiringSoon ? "px-4 py-3 highlight" : "px-4 py-3"}>
                                                     {new Date(item.expirationDate).toLocaleDateString('en-US', {
                                                         year: 'numeric',
+                                                        day: 'numeric',
                                                         month: 'short',
                                                     })}
                                                 </td>
