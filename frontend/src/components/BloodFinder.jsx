@@ -8,22 +8,13 @@ function BloodFinder() {
     const [homeClinic, setHomeClinic] = useState('');
     const [bloodType, setBloodType] = useState('');
     const [productType, setProductType] = useState('');
-    const [pets, setPets] = useState([]);
     const [matchingBlood, setMatchingBlood] = useState([]);
     const { id } = useParams();
     const navigate = useNavigate();
     const { userRole } = useAuth();
 
-    const searchPets = (e) => {
+    const searchBlood = (e) => {
         e.preventDefault();
-
-        axios
-            .get(`http://localhost:8000/api/owners/search?homeClinic=${homeClinic}&bloodType=${bloodType}`, { withCredentials: true })
-            .then((res) => {
-                setPets(res.data);
-            })
-            .catch((err) => console.log(err));
-
         axios
             .get(`http://localhost:8000/api/inventory/search/${homeClinic}/${bloodType}/${productType}`, { withCredentials: true })
             .then((res) => {
@@ -55,7 +46,7 @@ function BloodFinder() {
                     <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                         <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                             <div className="w-full">
-                                <form onSubmit={searchPets}>
+                                <form onSubmit={searchBlood}>
                                     <div>
                                         <label htmlFor="homeClinic" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Home Clinic:</label>
                                         <select id="homeClinic" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -71,6 +62,18 @@ function BloodFinder() {
                                     </div>
 
                                     <div>
+                                        <label htmlFor="productType" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Type:</label>
+                                        <select id="productType"
+                                            value={productType}
+                                            onChange={(e) => setProductType(e.target.value)}
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="">Select Product Type</option>
+                                            <option value="pRBC">pRBCs</option>
+                                            <option value="FFP">FFP</option>
+                                            <option value="FP">FP</option>
+                                        </select>
+                                    </div>
+                                    <div>
                                         <label htmlFor="bloodType" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Blood Type:</label>
                                         <select id="bloodType" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             value={bloodType}
@@ -85,23 +88,7 @@ function BloodFinder() {
                                         </select>
                                     </div>
 
-                                    <div>
-                                        <label htmlFor="productType" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Type:</label>
-                                        <select id="productType"
-                                            value={productType}
-                                            onChange={(e) => setProductType(e.target.value)}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <option value="">Select Product Type</option>
-                                            <option value="pRBC">pRBCs</option>
-                                            <option value="FFP">FFP</option>
-                                            <option value="FP">FP</option>
-                                            <option value="Platelets">Platelets</option>
-                                            <option value="Cryo">Cryoprecipitate</option>
-                                            <option value="ALB">Albumin</option>
-                                            <option value="HBOC">HBOC</option>
-                                        </select>
-                                    </div>
-                                    <button type="button" onClick={searchPets} className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                                    <button type="button" onClick={searchBlood} className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
 
                                 </form>
                                 <div>

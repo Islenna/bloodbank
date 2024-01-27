@@ -1,0 +1,6 @@
+﻿bloodType,bloodSource,dateOrdered,dateReceived,donorID,expirationDate,unitSize,isDeleted
+A,Animal Blood Resources,9/20/2023,12/8/2023,TWF861,1/9/2024,50,0
+B,Animal Blood Resources,9/20/2023,12/8/2023,TTF128,1/9/2024,50,0
+B,Animal Blood Resources,9/20/2023,12/8/2023,TWF915,1/9/2024,50,0
+A,Animal Blood Resources,11/1/2023,12/29/2023,TWF637,1/30/2024,50,0
+B,Animal Blood Resources,11/1/2023,12/29/2023,TTF019,1/30/2024,50,0

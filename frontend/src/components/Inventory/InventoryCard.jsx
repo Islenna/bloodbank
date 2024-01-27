@@ -31,7 +31,7 @@ function InventoryCard() {
         axios
             .put(
                 `http://localhost:8000/api/inventory/${id}`,
-                { isOnHold: !onHold },
+                { onHold: !onHold }, 
                 { withCredentials: true }
             )
             .then((res) => {
@@ -39,6 +39,7 @@ function InventoryCard() {
             })
             .catch((err) => console.log(err));
     };
+    
 
 
 

@@ -14,6 +14,8 @@ export default function InventoryEditForm() {
         bloodSource: '',
         unitSize: '',
         bloodType: '',
+        dateOrdered: '',
+        dateReceived: '',
         expirationDate: '',
         crossmatchHistory: '',
         homeClinic: '',
@@ -32,6 +34,8 @@ export default function InventoryEditForm() {
                     bloodSource: existingData.bloodSource,
                     unitSize: existingData.unitSize,
                     bloodType: existingData.bloodType,
+                    dateOrdered: existingData.dateOrdered,
+                    dateReceived: existingData.dateReceived,
                     expirationDate: existingData.expirationDate,
                     crossmatchHistory: existingData.crossmatchHistory,
                     homeClinic: existingData.homeClinic,
@@ -119,6 +123,31 @@ export default function InventoryEditForm() {
                             <option value={false}>No</option>
                         </select>
                     </div>
+                    {(userRole === 'admin' || userRole === 'manager') && (
+                        <div>
+                            <div className="mb-6">
+                                <label htmlFor="dateOrdered" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ordered Date:</label>
+                                <input
+                                    type="date"
+                                    id="dateOrdered"
+                                    value={formData.dateOrdered}
+                                    onChange={(e) => setFormData({ ...formData, dateOrdered: e.target.value })}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                />
+                            </div>
+                            <div className="mb-6">
+                                <label htmlFor="dateReceived" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Received Date:</label>
+                                <input
+                                    type="date"
+                                    id="dateReceived"
+                                    value={formData.dateReceived}
+                                    onChange={(e) => setFormData({ ...formData, dateReceived: e.target.value })}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                />
+                            </div>
+                        </div>
+                    )}
+
                     <div className="mb-4">
                         <label htmlFor="crossmatchHistory" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Crossmatch History:
@@ -139,12 +168,12 @@ export default function InventoryEditForm() {
                     </button>
                     {(userRole === 'admin' || userRole === 'manager') && (
                         <button
-                        type="submit"
-                        onClick= {handleDelete}
-                        className="text-white bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-red-600 dark:focus:ring-red-900"
+                            type="submit"
+                            onClick={handleDelete}
+                            className="text-white bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-red-600 dark:focus:ring-red-900"
                         >
-                        Delete Inventory
-                    </button>
+                            Delete Inventory
+                        </button>
                     )}
                 </form>
             </div>

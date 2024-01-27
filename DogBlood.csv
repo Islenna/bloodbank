@@ -1,10 +1,10 @@
 ﻿bloodType,unitSize,bloodSource,dateOrdered,dateReceived,donorID,expirationDate,homeClinic,productType,isDeleted, deletedAt
 DEA 1.1 Negative,140,HemoSolutions,,2024-01-05T00:00:00.000Z,773n-c,2024-02-13T00:00:00.000Z,Concord,pRBCs, 0, null
-DEA 1.1 Negative,230,HemoSolutions,2023-09-20T00:00:00.000Z,2024-01-05T00:00:00.000Z,713n-c,2024-02-13T00:00:00.000Z,Concord,pRBCs, 0, null
-DEA 1.1 Negative,125,Animal Blood Resources,2023-11-01T00:00:00.000Z,2023-12-29T00:00:00.000Z,JS094,2024-02-06T00:00:00.000Z,Concord,pRBCs, 0, null
-DEA 1.1 Negative,125,Animal Blood Resources,2023-11-01T00:00:00.000Z,2023-12-29T00:00:00.000Z,JS094,2024-02-06T00:00:00.000Z,Concord,pRBCs, 0, null
-DEA 1.1 Negative,250,Animal Blood Resources,2023-11-01T00:00:00.000Z,2023-12-29T00:00:00.000Z,JS017,2024-02-06T00:00:00.000Z,Concord,pRBCs, 0, null
-DEA 1.1 Negative,250,Animal Blood Resources,2023-11-01T00:00:00.000Z,2023-12-29T00:00:00.000Z,JS075,2024-02-06T00:00:00.000Z,Concord,pRBCs, 0, null
+DEA 1.1 Negative,230,HemoSolutions,2023-09-20T00:00:00.000Z,2024-01-05T00:00:00.000Z,713n-c,2024-02-13T00:00:00.000Z,Concord,pRBC, 0, null
+DEA 1.1 Negative,125,Animal Blood Resources,2023-11-01T00:00:00.000Z,2023-12-29T00:00:00.000Z,JS094,2024-02-06T00:00:00.000Z,Concord,pRBC, 0, null
+DEA 1.1 Negative,125,Animal Blood Resources,2023-11-01T00:00:00.000Z,2023-12-29T00:00:00.000Z,JS094,2024-02-06T00:00:00.000Z,Concord,pRBC, 0, null
+DEA 1.1 Negative,250,Animal Blood Resources,2023-11-01T00:00:00.000Z,2023-12-29T00:00:00.000Z,JS017,2024-02-06T00:00:00.000Z,Concord,pRBC, 0, null
+DEA 1.1 Negative,250,Animal Blood Resources,2023-11-01T00:00:00.000Z,2023-12-29T00:00:00.000Z,JS075,2024-02-06T00:00:00.000Z,Concord,pRBC, 0, null
 
 
 

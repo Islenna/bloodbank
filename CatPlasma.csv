@@ -1,0 +1,10 @@
+﻿bloodType,bloodSource,dateOrdered,dateReceived,donorID,expirationDate,isDeleted, homeClinic, productType
+B,Animal Blood Resources,11/8/2023,11/8/2023,TTF035,11/23/2023,0,Concord, FFP
+B,Animal Blood Resources,11/8/2023,11/8/2023,TTF040,11/23/2023,0,Concord, FFP
+B,Animal Blood Resources,11/8/2023,11/8/2023,SHF139,11/23/2023,0,Concord, FFP
+A,Animal Blood Resources,11/8/2023,11/8/2023,TWF969,8/22/2024,0,Concord, FFP
+A,Animal Blood Resources,11/8/2023,11/10/2023,TWF634,10/3/2024,0,Concord, FFP
+A,Animal Blood Resources,11/8/2023,11/10/2023,TWF459,10/3/2024,0,Concord, FFP
+A,Animal Blood Resources,11/8/2023,11/10/2023,TWF927,10/3/2024,0,Concord, FFP
+B,Animal Blood Resources,11/8/2023,11/10/2023,SHF165,9/11/2024,0,Concord, FFP
+B,Animal Blood Resources,11/8/2023,11/10/2023,SHF208,9/11/2024,0,Concord, FFP

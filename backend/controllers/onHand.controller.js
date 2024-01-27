@@ -37,7 +37,7 @@ module.exports.updateCrossmatchHistory = (req, res) => {
         .then((item) => {
             if (!item) {
                 return res.status(404).json({ message: 'Inventory item not found' });
-                
+
             }
             item.crossmatchHistory = crossmatchHistory;
             item.homeClinic = homeClinic;
@@ -72,7 +72,7 @@ module.exports.getByClinic = (req, res) => {
 
 module.exports.updateBloodOnHand = (req, res) => {
     const { id } = req.params;
-    const { isOnHold } = req.body;
+    const { onHold } = req.body; // Changed from isOnHold to onHold
 
     OnHand.findById(id)
         .then((item) => {
@@ -80,7 +80,11 @@ module.exports.updateBloodOnHand = (req, res) => {
                 return res.status(404).json({ message: 'Inventory item not found' });
             }
 
-            item.onHold = isOnHold;
+            if (typeof item.onHold === 'undefined') {
+                item.onHold = false; 
+            }
+
+            item.onHold = onHold;
             return item.save();
         })
         .then((updatedItem) => {
@@ -90,7 +94,7 @@ module.exports.updateBloodOnHand = (req, res) => {
             console.error(err);
             res.status(500).json({ message: 'Server error' });
         });
-}
+};
 
 
 module.exports.delete = (req, res) => {
@@ -136,12 +140,14 @@ module.exports.getByClinicAndBloodType = (req, res) => {
         });
 };
 
-
 module.exports.bloodSearch = (req, res) => {
-    const { homeClinic, bloodType, productType } = req.params;
+    const { homeClinic, bloodType, productType } = req.params; // or req.query if using query strings
+
+    console.log("Searching for:", { homeClinic, bloodType, productType }); // Log the search parameters
 
     OnHand.find({ homeClinic, bloodType, productType })
         .then(onHand => {
+            console.log("Found items:", onHand); // Log the query results
             res.json(onHand);
         })
         .catch(err => {

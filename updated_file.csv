@@ -1,14 +1,5 @@
-unitSize,bloodSource,donorID,expirationDate,productType, homeClinic, isDeleted
-120,Animal Blood Resources,TW1082,2024-08-06T00:00:00, FFP, Concord,0
-120,Animal Blood Resources,JS060,2024-07-25T00:00:00, FFP, Concord,0
-120,Animal Blood Resources,TW987,2024-07-25T00:00:00, FFP, Concord,0
-120,Animal Blood Resources,TW987,2024-07-25T00:00:00, FFP, Concord,0
-120,Animal Blood Resources,TW1113,2024-07-25T00:00:00, FFP, Concord,0
-120,Animal Blood Resources,TW1257,2024-07-23T00:00:00, FFP, Concord,0
-240,Animal Blood Resources,TW1027,2024-07-23T00:00:00, FFP, Concord,0
-240,Animal Blood Resources,TW1223,2024-07-23T00:00:00, FFP, Concord,0
-240,Animal Blood Resources,PM452,2024-01-10T00:00:00, FFP, Concord,0
-240,Animal Blood Resources,TW1141,2024-07-23T00:00:00, FFP, Concord,0
-240,Animal Blood Resources,TW1083,2024-08-06T00:00:00, FFP, Concord,0
-240,Animal Blood Resources,PM364,2024-08-06T00:00:00, FFP, Concord,0
-240,Animal Blood Resources,TW943,2024-08-06T00:00:00, FFP, Concord,0
+unitSize,bloodSource,dateOrdered,dateReceived,donorID,expirationDate, isDeleted, homeClinic, productType
+12,Hemopet,2024-01-08T00:00:00,2024-01-12T00:00:00,C636124A02 (Cedric),2025-01-02T00:00:00,0,Concord,Cryo
+12,Hemopet,2024-01-08T00:00:00,2024-01-12T00:00:00,C639424A02 (Lorelei),2025-01-02T00:00:00,0,Concord,Cryo
+12,Hemopet,2024-01-08T00:00:00,2024-01-12T00:00:00,C635024A02 (Dancin),2025-01-02T00:00:00,0,Concord,Cryo
+12,Hemopet,2024-01-08T00:00:00,2024-01-12T00:00:00,C641624A02 (Frenchy),2025-01-02T00:00:00,0,Concord,Cryo

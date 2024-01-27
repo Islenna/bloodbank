@@ -153,12 +153,12 @@ function InventoryList() {
                                     {currentItems.map((item) => {
                                         const expiringSoon = isExpiringSoon(item.expirationDate);
                                         const formattedDateOrdered = new Date(item.dateOrdered).toLocaleDateString('en-US', {
-                                            month: 'numeric',
+                                            month: 'short',
                                             day: 'numeric',
                                             year: 'numeric'
                                         });
                                         const formattedDateReceived = new Date(item.dateReceived).toLocaleDateString('en-US', {
-                                            month: 'numeric',
+                                            month: 'short',
                                             day: 'numeric',
                                             year: 'numeric'
                                         });

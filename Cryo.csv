@@ -1,0 +1,6 @@
+﻿
+unitSize,bloodSource,dateOrdered,dateReceived,donorID,expirationDate, isDeleted, homeClinic, productType
+12,Hemopet,1/8/2024,1/12/2024,C636124A02 (Cedric),1/2/2025,0,Concord,Cryo
+12,Hemopet,1/8/2024,1/12/2024,C639424A02 (Lorelei),1/2/2025,0,Concord,Cryo
+12,Hemopet,1/8/2024,1/12/2024,C635024A02 (Dancin),1/2/2025,0,Concord,Cryo
+12,Hemopet,1/8/2024,1/12/2024,C641624A02 (Frenchy),1/2/2025,0,Concord,Cryo
