@@ -9,6 +9,6 @@
 - [ ] Modularization
 - [ ] Modals?
 - [ x ] Add Toasts
-- [ ] Better user controls
-  - [ ] Investigate logins? 
-  - [ ] Mobile dropdowns
+- [ x ] Better user controls
+  - [ x ] Investigate logins? 
+  - [ x ] Mobile dropdowns

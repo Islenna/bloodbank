@@ -52,15 +52,6 @@ Built with:
    ```
 
 
-## To-Do
-
-- [ ] Implement advanced search capabilities.
-- [ ] Ensure accurate representation and updates for inventory items.
-- [ ] Complete footer.
-- [ ] Connect the suggestions box appropriately.
-- [ ] Security check
-- [ ] Database cleanup
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
