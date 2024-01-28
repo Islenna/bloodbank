@@ -13,7 +13,7 @@ export default function Suggestions() {
     useEffect(() => {
         if (userRole === 'admin') {
             setIsLoading(true);
-            axios.get('http://localhost:8000/api/suggestion')
+            axios.get('http://localhost:8000/api/suggestion', { withCredentials: true })
                 .then(response => {
                     const suggestionsWithId = response.data.map((suggestion, index) => {
                         return { ...suggestion, id: suggestion.id || index };
@@ -31,7 +31,7 @@ export default function Suggestions() {
 
     async function handleDelete(id) {
         try {
-            await axios.delete(`http://localhost:8000/api/suggestion/delete/${id}`);
+            await axios.delete(`http://localhost:8000/api/suggestion/delete/${id}`, { withCredentials: true });
             toast.success('Suggestion deleted successfully');
             setSuggestions(suggestions.filter(suggestion => suggestion._id !== id));
         } catch (error) {
