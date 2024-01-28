@@ -11,7 +11,6 @@ export default function CustomNavbar(props) {
 
 
     const toggleMenu = () => {
-        console.log('Toggle menu clicked'); // Add this line
         setIsMenuOpen(!isMenuOpen);
     };
 
