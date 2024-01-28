@@ -36,7 +36,7 @@ function InventoryList() {
         pageNumbers.push(i);
     }
 
-    //Filtering
+    //Searching
 
     const debouncedApplyFilters = debounce(() => {
         applyFilters();
@@ -57,24 +57,15 @@ function InventoryList() {
     };
 
     const applyFilters = () => {
-        // If the search term is cleared, reset the filtered inventory to the full list
-        if (!searchTerm) {
-            setFilteredInventory(inventory);
-            return;
-        }
-
         const result = inventory.filter(item => {
-            // Apply search term to homeClinic
             const searchTermCondition = item.homeClinic.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                item.donorID.toLowerCase().includes(searchTerm.toLowerCase())
-
-            // Apply other filter conditions
+                item.donorID.toLowerCase().includes(searchTerm.toLowerCase());
+    
             return matchesFilter(item, selectedFilters.homeClinic, 'homeClinic') &&
                 matchesFilter(item, selectedFilters.productType, 'productType') &&
-                // ... other filter conditions
                 searchTermCondition;
         });
-
+    
         setFilteredInventory(result);
     };
 

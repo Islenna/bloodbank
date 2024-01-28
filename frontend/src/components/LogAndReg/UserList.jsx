@@ -7,40 +7,38 @@ import { toast } from 'react-toastify';
 export default function UserList() {
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const { userRole } = useAuth();
 
     useEffect(() => {
-        
-        console.log("User role in UserList:", userRole);
-        console.log(localStorage.getItem('userRole'));
-        if (userRole !== 'admin') {
-            toast.error("You're not authorized to view this page");
-            console.log("User role in the useEffect", userRole);
+        if (userRole === '') {
+            setIsLoading(true);
+            return;
         }
 
-        axios
-            .get('http://localhost:8000/api/users', { withCredentials: true })
+        if (userRole !== 'admin') {
+            toast.error("You're not authorized to view this page");
+            navigate('/bloodfinder');
+            return;
+        }
+
+        setIsLoading(true);
+        axios.get('http://localhost:8000/api/users', { withCredentials: true })
             .then((res) => {
                 setUsers(res.data);
+                setIsLoading(false);
             })
             .catch((err) => {
                 console.log(err);
                 toast.error("Failed to fetch users");
+                setIsLoading(false);
             });
     }, [navigate, userRole]);
 
-    const handleChangeRole = (userId, newRole) => {
-        axios
-            .patch(`http://localhost:8000/api/users/${userId}/role`, { role: newRole }, { withCredentials: true })
-            .then((res) => {
-                setUsers(users.map(user => user._id === userId ? { ...user, role: newRole } : user));
-                toast.success("User role updated successfully");
-            })
-            .catch((err) => {
-                console.log(err);
-                toast.error("Failed to update user role");
-            });
-    };
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
 
     return (
         <div className="flex flex-col items-center justify-center">
