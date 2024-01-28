@@ -2,9 +2,8 @@ const Suggestion = require('../models/suggestion.model');
 
 const createSuggestion = async (req, res) => {
     try {
-        const newSuggestion = new Suggestion({ 
+        const newSuggestion = new Suggestion({
             message: req.body.message,
-            user: req.user.id  // Assuming you have user information in request
         });
         await newSuggestion.save();
         res.json({ message: "Suggestion added successfully", suggestion: newSuggestion });
@@ -28,15 +27,23 @@ const getOneSuggestion = (req, res) => {
 }
 
 const updateSuggestion = (req, res) => {
-    Suggestion.findOneAndUpdate({ _id: req.params.id }, request.body, {new: true })
+    Suggestion.findOneAndUpdate({ _id: req.params.id }, request.body, { new: true })
         .then(updatedSuggestion => res.json(updatedSuggestion))
         .catch(err => res.json(err));
 }
 
 const deleteSuggestion = (req, res) => {
-    Suggestion.deleteOne({ _id: req.params.id})
-        .then(deleteConfirmation => res.json(deleteConfirmation))
-        .catch(err => res.json(err));
+    const { id } = req.params;
+    console.log("Deleting suggestion with ID:", id);
+    Suggestion.findByIdAndDelete(id)
+        .then(deleteConfirmation => {
+            console.log("Suggestion deleted:", deleteConfirmation);
+            res.json(deleteConfirmation);
+        })
+        .catch(err => {
+            console.log("Error deleting suggestion:", err);
+            res.status(500).json(err);
+        });
 }
 
 module.exports = {

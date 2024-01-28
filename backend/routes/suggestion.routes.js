@@ -1,8 +1,8 @@
 const SuggestionController = require('../controllers/suggestion.controller');
 // ...
 module.exports = (app) => {
-app.post('/api/suggestions/create', SuggestionController.createSuggestion);
-app.get('/api/suggestions/getall', SuggestionController.getAllSuggestion);
-app.put('/api/suggestions/update', SuggestionController.updateSuggestion);
-app.delete('/api/suggestions/delete', SuggestionController.deleteSuggestion);
+app.post('/api/suggestion', SuggestionController.createSuggestion);
+app.get('/api/suggestion', SuggestionController.getAllSuggestion);
+app.put('/api/suggestion/update', SuggestionController.updateSuggestion);
+app.delete('/api/suggestion/delete/:id', SuggestionController.deleteSuggestion);
 }

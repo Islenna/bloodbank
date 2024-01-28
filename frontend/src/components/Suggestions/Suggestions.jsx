@@ -1,33 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Suggestions() {
-    const [message, setMessage] = useState(''); // State to track the suggestion message
+    const [message, setMessage] = useState('');
+    const [suggestions, setSuggestions] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const { userRole } = useAuth();
 
-    const user = useAuth();
-    const userEmail = user.email;
+    useEffect(() => {
+        if (userRole === 'admin') {
+            setIsLoading(true);
+            axios.get('http://localhost:8000/api/suggestion')
+                .then(response => {
+                    const suggestionsWithId = response.data.map((suggestion, index) => {
+                        return { ...suggestion, id: suggestion.id || index };
+                    });
+                    setSuggestions(suggestionsWithId);
+                })
+                .catch(error => {
+                    toast.error('Failed to fetch suggestions');
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        }
+    }, [userRole]);
 
-    async function handleSubmit(event) {
-        event.preventDefault(); // Prevent the default form submission behavior
-
+    async function handleDelete(id) {
         try {
-            await axios.post('http://localhost:8000/api/suggestion', payload);
-            // Handle success
-            toast.success('Suggestion sent successfully', {
-                autoClose: 3000
-            });
-            // Clear the input field after successful submission
-            setMessage('');
+            await axios.delete(`http://localhost:8000/api/suggestion/delete/${id}`);
+            toast.success('Suggestion deleted successfully');
+            setSuggestions(suggestions.filter(suggestion => suggestion._id !== id));
         } catch (error) {
-            // Handle error
-            toast.error('Failed to send suggestion', {
-                autoClose: 3000
-            });
+            console.error('Error:', error.response);
+            toast.error('Failed to delete suggestion');
         }
     }
+    
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+
+        const payload = { message };
+
+        console.log('Submitting suggestion:', payload); // Log the payload being sent
+
+        try {
+            const response = await axios.post('http://localhost:8000/api/suggestion', payload);
+            console.log('Response:', response); // Log the response
+            toast.success('Suggestion sent successfully');
+            setMessage('');
+        } catch (error) {
+            console.error('Error:', error.response); // Log the error response
+            toast.error('Failed to send suggestion');
+        }
+    }
+
 
     return (
         <div>
@@ -49,6 +80,24 @@ export default function Suggestions() {
                             </button>
                         </div>
                     </form>
+
+                    {userRole === 'admin' && (
+                        <div>
+                            <h2>All Suggestions</h2>
+                            {isLoading ? <p>Loading...</p> : (
+                                <ul>
+                                    {suggestions.map((suggestion) => (
+                                        <li key={suggestion._id}>
+                                            {suggestion.message}
+                                            <button onClick={() => handleDelete(suggestion._id)}>Delete</button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+
+
+                        </div>
+                    )}
                 </div>
             </section>
         </div>
