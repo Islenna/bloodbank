@@ -39,6 +39,27 @@ export default function UserList() {
         return <div>Loading...</div>;
     }
 
+    const handleChangeRole = (id, role) => {
+        axios.put(`http://localhost:8000/api/users/${id}/role`, { role }, { withCredentials: true })
+            .then((res) => {
+                setUsers(users.map((user) => (user._id === id ? { ...user, role } : user)));
+            })
+            .catch((err) => {
+                console.log(err);
+                toast.error("Failed to update user's role");
+            });
+    }
+
+    const handleDelete = (id) => {
+        axios.delete(`http://localhost:8000/api/users/${id}`, { withCredentials: true })
+            .then((res) => {
+                setUsers(users.filter((user) => user._id !== id));
+            })
+            .catch((err) => {
+                console.log(err);
+                toast.error("Failed to delete user");
+            });
+    }
 
     return (
         <div className="flex flex-col items-center justify-center">
@@ -54,19 +75,23 @@ export default function UserList() {
                 <tbody>
                     {users.map((user) => (
                         <tr key={user._id}>
-                            <td className="border px-4 py-2">{user.email}</td>
-                            <td className="border px-4 py-2">{user.role}</td>
-                            <td className="border px-4 py-2">
-                                <select
-                                    value={user.role}
-                                    onChange={(e) => handleChangeRole(user._id, e.target.value)}
-                                >
-                                    <option value="user">User</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="manager">Manager</option>
-                                </select>
-                            </td>
-                        </tr>
+                        <td className="border px-4 py-2">{user.email}</td>
+                        <td className="border px-4 py-2">{user.role}</td>
+                        <td className="border px-4 py-2">
+                            <select
+                                value={user.role}
+                                onChange={(e) => handleChangeRole(user._id, e.target.value)}
+                            >
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                                <option value="manager">Manager</option>
+                            </select>
+                        </td>
+                        <td className="border px-4 py-2">
+                            <button onClick={() => handleDelete(user._id)}>Delete</button>
+                        </td>
+                    </tr>
+                    
                     ))}
                 </tbody>
             </table>

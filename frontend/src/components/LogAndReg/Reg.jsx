@@ -4,8 +4,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import logo from '../../assets/logo.png';
 
-
-
 function Reg() {
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -14,9 +12,6 @@ function Reg() {
     const [regPassword, setRegPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [regError, setRegError] = useState('');
-
-    // Access setUserEmail and setIsLoggedIn from the context
-    const { setUserEmail, setIsLoggedIn } = useAuth();
 
     const registrationHandler = (e) => { //When copying Tailwind, change class to className and for to htmlFor.
         e.preventDefault();
@@ -41,8 +36,7 @@ function Reg() {
             .post('http://localhost:8000/api/users/register', payload, { withCredentials: true })
             .then((res) => {
                 console.log(res);
-                setUserEmail(res.data.email);
-                setIsLoggedIn(true);
+                login();
                 navigate('/bloodfinder');
             })
             .catch((err) => {
