@@ -18,7 +18,7 @@ Built with:
 - **TailwindCSS**: A utility-first CSS framework. Note: The migration from Bootstrap to Tailwind is still ongoing.
 - **Environment Variables**: The project utilizes `.env` variables for confidential configurations.
 - **Blood Inventory Management**: Easily manage and track blood resources.
-- **Advanced Search**: Find specific blood types and donors efficiently.
+- **Advanced Search**: Find specific blood types efficiently.
 - **Responsive Design**: Ensure a seamless experience on various devices.
 
 

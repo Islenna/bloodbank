@@ -12,3 +12,5 @@
 - [ x ] Better user controls
   - [ x ] Investigate logins? 
   - [ x ] Mobile dropdowns
+- [ x ] Improve light mode display
+- [ x ] Add eye/eyeslash to passwords. 
