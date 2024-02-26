@@ -77,7 +77,10 @@ function Log() {
                                     className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
                                     style={{ outline: 'none' }} // To remove focus outline, if desired
                                 >
-                                    <FontAwesomeIcon icon={passwordShown ? faEyeSlash : faEye} />
+                                    <FontAwesomeIcon
+                                        icon={passwordShown ? faEyeSlash : faEye}
+                                        className="text-gray-700 dark:text-gray-200"
+                                    />
                                 </button>
                             </div>
                             <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>

@@ -36,7 +36,7 @@ function ConsumedList() {
     const matchesFilter = (item, filterTerm, property) => {
         return filterTerm ? item[property].toString().toLowerCase().includes(filterTerm.toLowerCase()) : true;
     };
-    
+
     const applyFilters = () => {
         const result = consumedInventory.filter(item => {
             const searchTermCondition = item.homeClinic.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -65,6 +65,20 @@ function ConsumedList() {
 
     for (let i = 1; i <= Math.ceil(filteredConsumedInventory.length / itemsPerPage); i++) {
         pageNumbers.push(i);
+    }
+
+    function determineConsumptionClass(consumeType) {
+        switch (consumeType) {
+            case 'Successfully Transfused':
+                return 'text-green-500'; // Green for success
+            case 'Transferred':
+                return 'text-yellow-500'; // Yellow for transferred
+            case 'Expired':
+            case 'Wasted':
+                return 'text-red-500'; // Red for expired or wasted
+            default:
+                return ''; // Default class or no class
+        }
     }
 
     return (
@@ -106,8 +120,8 @@ function ConsumedList() {
                                                 <td className="px-4 py-3">{item.bloodType}</td>
                                                 <td className="px-4 py-3">{item.unitSize}</td>
                                                 <td className="px-4 py-3">{item.bloodSource}</td>
-                                                <td className="px-4 py-3">{new Date(item.deletedAt).toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric' })}</td>
-                                                <td className="px-4 py-3">{item.consumptionType}</td>
+                                                <td className="px-4 py-3">{new Date(item.deletedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</td>
+                                                <td className={`px-4 py-3 ${determineConsumptionClass(item.consumptionType)}`}>{item.consumptionType}</td>
                                                 <td className="px-4 py-3 flex items-center justify-end">
                                                     <button
                                                         id={`${item.productName}-dropdown-button`}

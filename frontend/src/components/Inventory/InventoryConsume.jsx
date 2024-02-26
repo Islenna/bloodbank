@@ -194,7 +194,8 @@ export default function InventoryConsume({ totalVolume }) {
                         </div>
                     </div>
                 </div>
-                <button type="button" onClick={handleConsume} className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Consume</button>
+                <button type="button" onClick={handleConsume} 
+                className="mt-8 text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Consume</button>
             </section >
 
         </div >

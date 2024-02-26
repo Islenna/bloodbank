@@ -97,7 +97,11 @@ function Reg() {
                                         className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
                                         style={{ outline: 'none' }}
                                     >
-                                        <FontAwesomeIcon icon={passwordShown ? faEyeSlash : faEye} />
+                                        <FontAwesomeIcon
+                                            icon={passwordShown ? faEyeSlash : faEye}
+                                            className="text-gray-700 dark:text-gray-200"
+                                        />
+
                                     </button>
                                 </div>
                             </div>
@@ -121,12 +125,16 @@ function Reg() {
                                         className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
                                         style={{ outline: 'none' }}
                                     >
-                                        <FontAwesomeIcon icon={confirmPasswordShown ? faEyeSlash : faEye} />
+                                        <FontAwesomeIcon
+                                            icon={passwordShown ? faEyeSlash : faEye}
+                                            className="text-gray-700 dark:text-gray-200"
+                                        />
+
                                     </button>
                                 </div>
                             </div>
                             <div className="flex items-start">
-                                
+
                             </div>
                             <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create an account</button>
                             {regError && <p className="text-sm text-red-500">{regError}</p>}
