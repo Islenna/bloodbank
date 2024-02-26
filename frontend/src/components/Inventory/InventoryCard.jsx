@@ -31,7 +31,7 @@ function InventoryCard() {
         axios
             .put(
                 `http://localhost:8000/api/inventory/${id}`,
-                { onHold: !onHold }, 
+                { onHold: !onHold },
                 { withCredentials: true }
             )
             .then((res) => {
@@ -39,7 +39,7 @@ function InventoryCard() {
             })
             .catch((err) => console.log(err));
     };
-    
+
 
 
 
@@ -48,12 +48,12 @@ function InventoryCard() {
     return (
         <div className="space-y-4">
             <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
-                <h1 className="mb-2 text-2xl font-bold">Donor {donorID} Information</h1>
+                <h1 className="mb-2 text-2xl text-black dark:text-white font-bold">Donor {donorID} Information</h1>
                 <h2 className="mb-4 text-lg text-gray-500">Click to Edit</h2>
                 <div className="flex justify-center items-center space-y-4">
                     <div
                         onClick={() => navigate(`/inventory/edit/${id}`)}
-                        className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+                        className="w-full p-6 mb-8 bg-white border text-black border-gray-200 rounded-lg shadow-md hover:bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700"c
                     >
                         <div className="space-y-4">
                             <div className="text-xl font-semibold">Inventory Information</div>

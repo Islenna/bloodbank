@@ -99,8 +99,7 @@ function ConsumedList() {
                                     <tbody>
                                         {filteredConsumedInventory.length > 0 ? null : <tr><td className="px-4 py-3">No inventory items found.</td></tr>}
                                         {filteredConsumedInventory.map((item) => (
-                                            <tr key={item._id} className="table-row border-b dark:border-gray-700"
-                                                onClick={() => navigate(`/consumed/${item._id}`)}>
+                                            <tr key={item._id} className="table-row border-b dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-primary-700" onClick={() => navigate(`/consumed/${item._id}`)}>
                                                 {error && <p className="text-red-500">Error loading data: {error}</p>}
                                                 <td className="px-4 py-3">{item.productType}</td>
                                                 <td className="px-4 py-3">{item.homeClinic}</td>

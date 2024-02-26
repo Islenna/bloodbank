@@ -60,12 +60,12 @@ function InventoryList() {
         const result = inventory.filter(item => {
             const searchTermCondition = item.homeClinic.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 item.donorID.toLowerCase().includes(searchTerm.toLowerCase());
-    
+
             return matchesFilter(item, selectedFilters.homeClinic, 'homeClinic') &&
                 matchesFilter(item, selectedFilters.productType, 'productType') &&
                 searchTermCondition;
         });
-    
+
         setFilteredInventory(result);
     };
 
@@ -106,14 +106,12 @@ function InventoryList() {
                                             id="simple-search"
                                             onChange={handleSearchChange}
                                             value={searchTerm}
-                                            className="focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Search"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search"
                                             required=""
                                         />
                                     </div>
                                 </form>
                             </div>
-                            <FilterButton onFilterChange={handleFilterChange} />
                             {(userRole === 'admin' || userRole === 'manager') && (
                                 <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                                     <button onClick={() => navigate(`/inventory/new`)} type="button" className="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
@@ -157,7 +155,7 @@ function InventoryList() {
 
 
                                         return (
-                                            <tr key={item._id} className="table-row border-b dark:border-gray-700"
+                                            <tr key={item._id} className="table-row border-b dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-primary-700"
                                                 onClick={() => navigate(`/inventory/${item._id}`)}>
                                                 <td className="px-4 py-3">{item.productType}</td>
                                                 <td className={`px-4 py-3 ${onHoldClass}`}>{item.donorID}</td>
