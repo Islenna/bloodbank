@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import logo from '../../assets/logo.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function Reg() {
     const { login } = useAuth();
@@ -12,8 +14,18 @@ function Reg() {
     const [regPassword, setRegPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [regError, setRegError] = useState('');
+    const [passwordShown, setPasswordShown] = useState(false);
+    const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
 
-    const registrationHandler = (e) => { //When copying Tailwind, change class to className and for to htmlFor.
+    const togglePasswordVisibility = () => {
+        setPasswordShown(!passwordShown);
+    };
+
+    const toggleConfirmPasswordVisibility = () => {
+        setConfirmPasswordShown(!confirmPasswordShown);
+    };
+
+    const registrationHandler = (e) => {
         e.preventDefault();
         setRegError('');
 
@@ -69,25 +81,52 @@ function Reg() {
                             </div>
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    value={regPassword}
-                                    onChange={(e) => setRegPassword(e.target.value)}
-                                    required />
+                                <div className="relative">
+                                    <input
+                                        type={passwordShown ? "text" : "password"}
+                                        name="password"
+                                        id="password"
+                                        placeholder="••••••••"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                                        value={regPassword}
+                                        onChange={(e) => setRegPassword(e.target.value)}
+                                        required />
+                                    <button
+                                        type="button"
+                                        onClick={togglePasswordVisibility}
+                                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                                        style={{ outline: 'none' }}
+                                    >
+                                        <FontAwesomeIcon icon={passwordShown ? faEyeSlash : faEye} />
+                                    </button>
+                                </div>
                             </div>
+
                             <div>
                                 <label htmlFor="confirm-password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-                                <input type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                    required />
+                                <div className="relative">
+                                    <input
+                                        type={confirmPasswordShown ? "text" : "password"}
+                                        name="confirm-password"
+                                        id="confirm-password"
+                                        placeholder="••••••••"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        required
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={toggleConfirmPasswordVisibility}
+                                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                                        style={{ outline: 'none' }}
+                                    >
+                                        <FontAwesomeIcon icon={confirmPasswordShown ? faEyeSlash : faEye} />
+                                    </button>
+                                </div>
                             </div>
                             <div className="flex items-start">
-                                <div className="flex items-center h-5">
-                                    <input id="terms" aria-describedby="terms" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="" />
-                                </div>
-                                <div className="ml-3 text-sm">
-                                    <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300">I accept the <a className="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Terms and Conditions</a></label>
-                                </div>
+                                
                             </div>
                             <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create an account</button>
                             {regError && <p className="text-sm text-red-500">{regError}</p>}
