@@ -103,7 +103,7 @@ export default function InventoryForm() {
                 <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
                     <form onSubmit={createInventory}>
                         <div>
-                            <h3>Donor Information</h3>
+                            <h3 className="text-black dark:text-white mb-2">Donor Information</h3>
                             <label htmlFor="homeClinic" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Home Clinic:</label>
                             <select id="homeClinic"
                                 value={homeClinic}

@@ -79,10 +79,10 @@ export default function InventoryEditForm() {
 
     return (
         <div className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
-            <h1 className="mb-2 text-2xl font-bold">Donor: {formData.donorID}</h1>
+            <h1 className="mb-2 text-2xl text-black dark:text-white font-bold">Donor: {formData.donorID}</h1>
             <div className="bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 p-6">
-                <h2 className="mb-4 text-lg">Donor Source: {formData.bloodSource}</h2>
-                <h2 className="mb-4 text-lg">Product Type: {formData.productType}</h2>
+                <h2 className="mb-4 text-lg text-black dark:text-white">Donor Source: {formData.bloodSource}</h2>
+                <h2 className="mb-4 text-lg text-black dark:text-white">Product Type: {formData.productType}</h2>
                 <form onSubmit={updateInventory} className="space-y-4">
                     <div className="mb-4">
                         <label htmlFor="homeClinic" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
