@@ -125,7 +125,7 @@ function BloodFinder() {
                                                             key={blood._id}>
                                                             <td className="px-6 py-4 text-center">{blood.donorID}</td>
                                                             <td className="px-6 py-4 text-center">{blood.unitSize}</td>
-                                                            <td className={expiringSoon ? "px-4 py-3 highlight" : "px-4 py-3"}>
+                                                            <td className={expiringSoon ? "px-4 py-3 highlight text-center" : "px-4 py-3 text-center"}>
                                                                 {new Date(blood.expirationDate).toLocaleDateString('en-US', {
                                                                     year: 'numeric',
                                                                     day: 'numeric',

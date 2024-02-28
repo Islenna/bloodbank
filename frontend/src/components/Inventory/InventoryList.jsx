@@ -50,12 +50,9 @@ function InventoryList() {
         applyFilters();
     }, 300);
 
+
     const handleFilterChange = (newFilters) => {
-        setSelectedFilters(prevFilters => ({
-            ...prevFilters,
-            ...newFilters
-        }));
-        debouncedApplyFilters();
+        setSelectedFilters(newFilters);
     };
     
     const matchesFilter = (item, filterTerm, property) => {
@@ -72,14 +69,15 @@ function InventoryList() {
         const result = inventory.filter(item => {
             const searchTermCondition = item.homeClinic.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 item.donorID.toLowerCase().includes(searchTerm.toLowerCase());
-
+    
             return matchesFilter(item, selectedFilters.homeClinic, 'homeClinic') &&
                 matchesFilter(item, selectedFilters.productType, 'productType') &&
                 searchTermCondition;
         });
-
+    
         setFilteredInventory(result);
     };
+    
 
 
     useEffect(() => {
@@ -95,8 +93,8 @@ function InventoryList() {
 
     useEffect(() => {
         applyFilters();
-    }, [selectedFilters, filteredInventory, searchTerm]);
-
+    }, [selectedFilters, searchTerm]);
+    
 
     return (
         <div className="text-center">
