@@ -18,7 +18,6 @@ function InventoryCard() {
     const onHold = inventory.onHold;
 
     useEffect(() => {
-        // get the information of the inventory item
         axios
             .get(`http://localhost:8000/api/inventory/${id}`, { withCredentials: true })
             .then((res) => {
@@ -53,7 +52,7 @@ function InventoryCard() {
                 <div className="flex justify-center items-center space-y-4">
                     <div
                         onClick={() => navigate(`/inventory/edit/${id}`)}
-                        className="w-full p-6 mb-8 bg-white border text-black border-gray-200 rounded-lg shadow-md hover:bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700"c
+                        className="w-full p-6 mb-8 bg-white border text-black border-gray-200 rounded-lg shadow-md hover:bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700"
                     >
                         <div className="space-y-4">
                             <div className="text-xl font-semibold">Inventory Information</div>
@@ -80,6 +79,7 @@ function InventoryCard() {
                                     <span className="font-semibold">Expiration Date:</span>{' '}
                                     {new Date(expirationDate).toLocaleDateString('en-US', {
                                         year: 'numeric',
+                                        day: 'numeric',
                                         month: 'short',
                                     })}
                                 </p>

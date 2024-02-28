@@ -41,14 +41,16 @@ function ConsumedList() {
         const result = consumedInventory.filter(item => {
             const searchTermCondition = item.homeClinic.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 item.donorID.toLowerCase().includes(searchTerm.toLowerCase());
-
+    
             return matchesFilter(item, selectedFilters.homeClinic, 'homeClinic') &&
                 matchesFilter(item, selectedFilters.productType, 'productType') &&
+                matchesFilter(item, selectedFilters.consumptionType, 'consumptionType') &&
                 searchTermCondition;
         });
-
+    
         setFilteredConsumedInventory(result);
     };
+    
 
     const handleFilterChange = (newFilters) => {
         setSelectedFilters(newFilters);

@@ -18,7 +18,6 @@ function FilterButton({ onFilterChange }) { // Prop to handle filter changes
     };
 
     const shouldDisplayConsumption = location.pathname == "/inventory/consumed";
-    const shouldDisplayOwnerInfo = location.pathname == "/owners";
 
     return (
         <div className="relative inline-block w-full md:w-auto">

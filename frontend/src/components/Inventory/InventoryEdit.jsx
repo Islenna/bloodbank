@@ -23,6 +23,13 @@ export default function InventoryEditForm() {
         productType: '',
     });
 
+    // Function to format date to "yyyy-MM-dd" format
+    const formatDate = (date) => {
+        if (!date) return ''; // Handle empty date
+        const formattedDate = new Date(date).toISOString().split('T')[0];
+        return formattedDate;
+    };
+
     useEffect(() => {
         // get the information of the inventory item
         axios
@@ -34,9 +41,9 @@ export default function InventoryEditForm() {
                     bloodSource: existingData.bloodSource,
                     unitSize: existingData.unitSize,
                     bloodType: existingData.bloodType,
-                    dateOrdered: existingData.dateOrdered,
-                    dateReceived: existingData.dateReceived,
-                    expirationDate: existingData.expirationDate,
+                    dateOrdered: formatDate(existingData.dateOrdered), // Format date
+                    dateReceived: formatDate(existingData.dateReceived), // Format date
+                    expirationDate: formatDate(existingData.expirationDate),
                     crossmatchHistory: existingData.crossmatchHistory,
                     homeClinic: existingData.homeClinic,
                     onHold: existingData.onHold,
