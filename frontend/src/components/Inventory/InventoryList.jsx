@@ -6,14 +6,20 @@ import FilterButton from './FilterButton/FilterButton';
 import { isExpiringSoon } from '../../utils/utils';
 import { debounce } from '../../utils/debounce';
 import Search from '../Search';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 
 function InventoryList() {
     const [inventory, setInventory] = useState([]);
     const navigate = useNavigate();
     const { userRole } = useAuth();
+    const [sortOrder, setSortOrder] = useState('asc'); // Initial sorting order
+    const [sortBy, setSortBy] = useState('expirationDate'); // Initial sorting property
     const navigateToItem = (id) => {
         navigate(`/inventory/${id}`);
     };
+    const [sortedInventory, setSortedInventory] = useState([]);
+
 
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredInventory, setFilteredInventory] = useState([]);
@@ -22,29 +28,82 @@ function InventoryList() {
         productType: "",
     });
 
+    const sortInventory = () => {
+        const sortedInventory = [...filteredInventory].sort((a, b) => {
+            // Compare expiration dates
+            const dateA = new Date(a.expirationDate).getTime();
+            const dateB = new Date(b.expirationDate).getTime();
+
+            // Determine the sorting order based on sortOrder
+            const result = sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+
+            return result;
+        });
+
+        // Update the sorted inventory state
+        setSortedInventory(sortedInventory);
+    };
+
+
+
+    // Function to handle sorting when a table header is clicked
+    const handleSort = (property) => {
+        // Toggle sorting order if the same property is clicked again
+        if (property === sortBy) {
+            setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+        } else {
+            // If a different property is clicked, set it as the new sorting property and reset the sorting order to ascending
+            setSortBy(property);
+            setSortOrder('asc');
+        }
+        sortInventory(); // Call sortInventory function to update sortedInventory
+    };
+
+    // Apply Filters with Sorting and Pagination
+    const applyFilters = () => {
+        // Filter the inventory based on search term and selected filters
+        const filteredResult = inventory.filter(item => {
+            const searchTermCondition = item.homeClinic.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                item.donorID.toLowerCase().includes(searchTerm.toLowerCase());
+
+            return matchesFilter(item, selectedFilters.homeClinic, 'homeClinic') &&
+                matchesFilter(item, selectedFilters.productType, 'productType') &&
+                searchTermCondition;
+        });
+
+        // Sort the filtered result
+        const sortedFilteredResult = [...filteredResult].sort((a, b) => {
+            const dateA = new Date(a[sortBy]);
+            const dateB = new Date(b[sortBy]);
+            return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+        });
+
+        // Update the filtered inventory state with sorted result
+        setFilteredInventory(sortedFilteredResult);
+
+        // Reset current page to 1 when filters change
+        setCurrentPage(1);
+    };
 
     // Pagination
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1); // Define currentPage state variable
     const itemsPerPage = 10;
+
+    // Calculate pagination parameters based on sorted inventory
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+    // Generate pagination buttons based on sorted inventory
+    const pageNumbers = Math.ceil(sortedInventory.length / itemsPerPage);
+    const renderPageNumbers = Array.from({ length: pageNumbers }, (_, i) => (
+        <button key={i + 1} onClick={() => handlePageClick(i + 1)} className={`flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${currentPage === i + 1 ? 'font-semibold' : ''}`}>{i + 1}</button>
+    ));
 
     // Handle pagination click
     const handlePageClick = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
-    // Calculate pagination parameters
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filteredInventory.slice(indexOfFirstItem, indexOfLastItem);
-
-    // Generate pagination buttons
-    const pageNumbers = Math.ceil(filteredInventory.length / itemsPerPage);
-    const renderPageNumbers = Array.from({ length: pageNumbers }, (_, i) => (
-        <button key={i + 1} onClick={() => handlePageClick(i + 1)} className={`flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${currentPage === i + 1 ? 'font-semibold' : ''}`}>{i + 1}</button>
-    ));
-
-
-    //Searching
 
     const debouncedApplyFilters = debounce(() => {
         applyFilters();
@@ -53,32 +112,17 @@ function InventoryList() {
 
     const handleFilterChange = (newFilters) => {
         setSelectedFilters(newFilters);
+        applyFilters(); // Trigger applyFilters function when filters change
     };
-    
+
     const matchesFilter = (item, filterTerm, property) => {
         return filterTerm ? item[property].toString().toLowerCase().includes(filterTerm.toLowerCase()) : true;
     };
-
     const handleSearchChange = (e) => {
         const value = e.target.value;
         setSearchTerm(value);
-        debouncedApplyFilters();
+        debouncedApplyFilters(); // Apply filters when the search term changes
     };
-
-    const applyFilters = () => {
-        const result = inventory.filter(item => {
-            const searchTermCondition = item.homeClinic.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                item.donorID.toLowerCase().includes(searchTerm.toLowerCase());
-    
-            return matchesFilter(item, selectedFilters.homeClinic, 'homeClinic') &&
-                matchesFilter(item, selectedFilters.productType, 'productType') &&
-                searchTermCondition;
-        });
-    
-        setFilteredInventory(result);
-    };
-    
-
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/inventory/active', { withCredentials: true })
@@ -92,9 +136,12 @@ function InventoryList() {
     }, []);
 
     useEffect(() => {
-        applyFilters();
-    }, [selectedFilters, searchTerm]);
-    
+        sortInventory();
+    }, [filteredInventory, sortOrder, sortBy]);
+
+    useEffect(() => {
+        applyFilters(); // Call applyFilters when search term or selected filters change
+    }, [searchTerm, selectedFilters]); // Add searchTerm and selectedFilters as dependencies
 
     return (
         <div className="text-center">
@@ -129,13 +176,26 @@ function InventoryList() {
                                         <th scope="col" className="px-4 py-3">Date Received</th>
                                         <th scope="col" className="px-4 py-3">Unit Size</th>
                                         <th scope="col" className="px-4 py-3">Vendor</th>
-                                        <th scope="col" className="px-4 py-3">Expiration Date</th>
+                                        <th scope="col" 
+                                        className="px-4 py-3 cursor-pointer" 
+                                        title="Click to sort by Expiration Date"
+                                        onClick={() => handleSort('productType')}>
+                                            Product Type
+                                            {sortBy === 'productType' && (
+                                                <FontAwesomeIcon icon={sortOrder === 'asc' ? faSortUp : faSortDown} className="ml-1" />
+                                            )}
+                                            {!sortBy && (
+                                                <FontAwesomeIcon icon={faSort} className="ml-1" />
+                                            )}
+                                        </th>
+
                                         <th scope="col" className="px-4 py-3">Blood Type</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {currentItems.length > 0 ? null : <tr><td className="px-4 py-3">No inventory items found.</td></tr>}
-                                    {currentItems.map((item) => {
+                                    {sortedInventory.length > 0 ? null : <tr><td className="px-4 py-3">No inventory items found.</td></tr>}
+                                    {sortedInventory.slice(indexOfFirstItem, indexOfLastItem).map((item) => {
+
                                         const expiringSoon = isExpiringSoon(item.expirationDate);
                                         const formattedDateOrdered = new Date(item.dateOrdered).toLocaleDateString('en-US', {
                                             month: 'short',
@@ -148,7 +208,6 @@ function InventoryList() {
                                             year: 'numeric'
                                         });
                                         const onHoldClass = item.onHold ? "text-yellow-500" : "text-green-500";
-
 
                                         return (
                                             <tr key={item._id} className="table-row border-b dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-primary-700"
@@ -167,10 +226,10 @@ function InventoryList() {
                                                     })}
                                                 </td>
                                                 <td className="px-4 py-3">{item.bloodType}</td>
-
                                             </tr>
                                         );
                                     })}
+
                                 </tbody>
 
                             </table>
