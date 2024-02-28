@@ -27,7 +27,6 @@ function ConsumedCard() {
             .get(`http://localhost:8000/api/consumed/${id}`, { withCredentials: true })
             .then((res) => {
                 setConsumed(res.data);
-                console.log("Patient ID:", res.data.patientID);
             })
             .catch((err) => console.log(err));
     }, [id]);

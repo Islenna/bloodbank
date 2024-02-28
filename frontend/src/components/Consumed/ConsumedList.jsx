@@ -5,10 +5,10 @@ import FilterButton from '../Inventory/FilterButton/FilterButton';
 import Search from '../Search';
 
 function ConsumedList() {
+    const navigate = useNavigate();
     const [consumedInventory, setConsumedInventory] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredConsumedInventory, setFilteredConsumedInventory] = useState([]);
-    const navigate = useNavigate();
     const [error, setError] = useState(null);
     const [selectedFilters, setSelectedFilters] = useState({
         homeClinic: '',
@@ -16,6 +16,10 @@ function ConsumedList() {
         consumptionType: '',
         // other filters if needed...
     });
+
+    // Sorting state variables
+    const [sortOrder, setSortOrder] = useState('asc'); // Initial sorting order
+    const [sortBy, setSortBy] = useState('consumedOn'); // Initial sorting property
 
     useEffect(() => {
         axios
@@ -33,33 +37,65 @@ function ConsumedList() {
         applyFilters();
     }, [selectedFilters, consumedInventory, searchTerm]); // Apply filters when selectedFilters, consumedInventory, or searchTerm changes
 
-    const matchesFilter = (item, filterTerm, property) => {
-        return filterTerm ? item[property].toString().toLowerCase().includes(filterTerm.toLowerCase()) : true;
-    };
-
+    // Function to apply filters
     const applyFilters = () => {
         const result = consumedInventory.filter(item => {
             const searchTermCondition = item.homeClinic.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 item.donorID.toLowerCase().includes(searchTerm.toLowerCase());
-    
+
             return matchesFilter(item, selectedFilters.homeClinic, 'homeClinic') &&
                 matchesFilter(item, selectedFilters.productType, 'productType') &&
                 matchesFilter(item, selectedFilters.consumptionType, 'consumptionType') &&
                 searchTermCondition;
         });
-    
-        setFilteredConsumedInventory(result);
-    };
-    
 
+        setFilteredConsumedInventory(result);
+        sortConsumedInventory(result); // Sort the filtered inventory
+    };
+
+    // Function to handle filter changes
     const handleFilterChange = (newFilters) => {
         setSelectedFilters(newFilters);
     };
 
-    //Pagination
+    // Function to toggle sorting order and set sorting property
+    const handleSort = (property) => {
+        // Toggle sorting order if the same property is clicked again
+        if (property === sortBy) {
+            setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+        } else {
+            // If a different property is clicked, set it as the new sorting property and reset the sorting order to ascending
+            setSortBy(property);
+            setSortOrder('asc');
+        }
+        applyFilters(); // Reapply filters and sorting
+    };
+
+    // Function to sort the consumed inventory based on selected property and order
+    const sortConsumedInventory = (inventory) => {
+        const sortedInventory = [...inventory].sort((a, b) => {
+            const valueA = a.deletedAt;
+            const valueB = b.deletedAt;
+
+            // Compare values based on sorting order
+            if (sortOrder === 'asc') {
+                return valueA > valueB ? 1 : -1;
+            } else {
+                return valueA < valueB ? 1 : -1;
+            }
+        });
+
+        setFilteredConsumedInventory(sortedInventory);
+    };
+
+    // Function to check if an item matches the filter term
+    const matchesFilter = (item, filterTerm, property) => {
+        return filterTerm ? item[property].toString().toLowerCase().includes(filterTerm.toLowerCase()) : true;
+    };
+
+    // Pagination
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10);
-
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = filteredConsumedInventory.slice(indexOfFirstItem, indexOfLastItem);
@@ -67,6 +103,10 @@ function ConsumedList() {
 
     for (let i = 1; i <= Math.ceil(filteredConsumedInventory.length / itemsPerPage); i++) {
         pageNumbers.push(i);
+    }
+
+    function determineConsumptionClass(consumeType) {
+        // Function implementation...
     }
 
     function determineConsumptionClass(consumeType) {
@@ -107,13 +147,22 @@ function ConsumedList() {
                                             <th scope="col" className="px-4 py-3">Blood Type</th>
                                             <th scope="col" className="px-4 py-3">Unit Size</th>
                                             <th scope="col" className="px-4 py-3">Vendor</th>
-                                            <th scope="col" className="px-4 py-3">Consumed On</th>
+                                            <th scope="col" className="px-4 py-3"
+                                                title="Click to sort by Consumption Date"
+                                                onClick={() => handleSort('deletedAt')}>
+                                                Consumed On
+                                                {sortBy === 'deletedAt' && (
+                                                    <span className="ml-1">
+                                                        {sortOrder === 'asc' ? '▲' : '▼'}
+                                                    </span>
+                                                )}
+                                            </th>
                                             <th scope="col" className="px-4 py-3">Consumption Type:</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {filteredConsumedInventory.length > 0 ? null : <tr><td className="px-4 py-3">No inventory items found.</td></tr>}
-                                        {filteredConsumedInventory.map((item) => (
+                                        {currentItems.map((item) => (
                                             <tr key={item._id} className="table-row border-b dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-primary-700" onClick={() => navigate(`/consumed/${item._id}`)}>
                                                 {error && <p className="text-red-500">Error loading data: {error}</p>}
                                                 <td className="px-4 py-3">{item.productType}</td>
@@ -177,7 +226,8 @@ function ConsumedList() {
                         <nav className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
                             <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
                                 Showing
-                                <span className="font-semibold text-gray-900 dark:text-white"> {indexOfFirstItem + 1}-{indexOfLastItem} </span>
+                                <span className="font-semibold text-gray-900 dark:text-white"> {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, filteredConsumedInventory.length)}
+                                </span>
                                 of
                                 <span className="font-semibold text-gray-900 dark:text-white"> {filteredConsumedInventory.length} </span>
                             </span>

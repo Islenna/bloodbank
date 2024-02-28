@@ -179,9 +179,9 @@ function InventoryList() {
                                         <th scope="col" 
                                         className="px-4 py-3 cursor-pointer" 
                                         title="Click to sort by Expiration Date"
-                                        onClick={() => handleSort('productType')}>
-                                            Product Type
-                                            {sortBy === 'productType' && (
+                                        onClick={() => handleSort('expirationDate')}>
+                                            Expires On
+                                            {sortBy === 'expirationDate' && (
                                                 <FontAwesomeIcon icon={sortOrder === 'asc' ? faSortUp : faSortDown} className="ml-1" />
                                             )}
                                             {!sortBy && (
