@@ -1,7 +1,6 @@
 const OnHand = require('../models/onHand.model');
 
 module.exports.createInventory = (req, res) => {
-    console.log('Adding bag to inventory:', req.body);
     OnHand.create(req.body)
         .then(onHand => res.json(onHand))
         .catch(err => res.status(400).json(err));
@@ -58,7 +57,6 @@ module.exports.updateCrossmatchHistory = (req, res) => {
 
 module.exports.getByClinic = (req, res) => {
     const { homeClinic } = req.params;
-    console.log('homeClinic:', homeClinic);
 
     OnHand.find({ homeClinic })
         .then(onHand => {
@@ -143,7 +141,6 @@ module.exports.getByClinicAndBloodType = (req, res) => {
 module.exports.bloodSearch = (req, res) => {
     const { homeClinic, bloodType, productType } = req.params; // or req.query if using query strings
 
-    console.log("Searching for:", { homeClinic, bloodType, productType }); // Log the search parameters
 
     OnHand.find({ homeClinic, bloodType, productType })
         .then(onHand => {
