@@ -10,6 +10,13 @@ import InventoryForm from './components/Inventory/InventoryForm';
 import InventoryCard from './components/Inventory/InventoryCard';
 import InventoryEdit from './components/Inventory/InventoryEdit';
 import InventoryConsume from './components/Inventory/InventoryConsume';
+import OwnerList from './components/Owner/OwnerList';
+import OwnerForm from './components/Owner/OwnerForm';
+import OwnerCard from './components/Owner/OwnerCard';
+import OwnerEdit from './components/Owner/OwnerEdit';
+import PetForm from './components/Pet/PetForm';
+import PetCard from './components/Pet/PetCard';
+import PetEdit from './components/Pet/PetEdit';
 import BloodFinder from './components/BloodFinder';
 import ConsumedList from './components/Consumed/ConsumedList';
 import ConsumedCard from './components/Consumed/ConsumedCard';
@@ -19,6 +26,7 @@ import CustomNavbar from './components/Header/CustomNavbar';
 import Footer from './components/Footer/Footer'
 import Suggestions from './components/Suggestions/Suggestions';
 import Contact from './components/Footer/FooterButtons/Contact';
+
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the default styles
 
@@ -44,6 +52,14 @@ function App() {
           <Route path="/consumed/:id" element={<ConsumedCard />} />
           <Route path="/suggestions" element={<Suggestions />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/donors" element={<OwnerList />} />
+          <Route path="/owners/new" element={<OwnerForm />} />
+          <Route path="/owners/:id" element={<OwnerCard />} />
+          <Route path="/owners/edit/:id" element={<OwnerEdit />} />
+          <Route path="/pets/new" element={<PetForm />} />
+          <Route path="/pets/:id" element={<PetCard />} />
+          <Route path="/pets/edit/:id" element={<PetEdit />} />
+
         </Routes>
         <ToastContainer />
         <Footer />

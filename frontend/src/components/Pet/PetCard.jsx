@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { Container, Button, Card } from 'react-bootstrap';
 
 export default function PetCard() {
     const [pet, setPet] = useState({});

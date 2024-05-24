@@ -5,7 +5,7 @@ module.exports = (app) => {
     
     // Owner routes
     app.get('/api/owners',authenticate, OwnerController.getAll);
-    app.post('/api/owners',authenticate, OwnerController.createOwner);
+    app.post('/api/owners/new',authenticate, OwnerController.createOwner);
     app.get('/api/owners/search',authenticate, OwnerController.clinicSearch);
     app.get('/api/owners/:id',authenticate, OwnerController.getOne);
     app.put('/api/owners/:id',authenticate, OwnerController.updateOwner);
