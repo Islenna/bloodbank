@@ -82,6 +82,7 @@ function BloodFinder() {
                                             <option value="">Select Blood Type</option>
                                             <option value="DEA 1.1 Positive">DEA 1.1 Positive</option>
                                             <option value="DEA 1.1 Negative">DEA 1.1 Negative</option>
+                                            <option value="DEA 4">DEA 4</option>
                                             <option value="A">A</option>
                                             <option value="B">B</option>
                                             <option value="AB">AB</option>
