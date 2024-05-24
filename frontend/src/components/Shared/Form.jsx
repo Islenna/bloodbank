@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-function Form({ formConfig, initialData }) {
+function Form({ formConfig, initialData, onSubmit }) {
     const [formData, setFormData] = useState(initialData || {});
     const [formErrors, setFormErrors] = useState({});
-    const navigate = useNavigate();
     const { id } = useParams();
+    const navigate = useNavigate();
 
-    function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-    
     useEffect(() => {
-        // If editing, fetch the initial data
         if (id && !initialData) {
             axios.get(`${formConfig.apiEndpoint}/${id}`, { withCredentials: true })
                 .then((res) => {
@@ -55,19 +50,10 @@ function Form({ formConfig, initialData }) {
         }
     
         try {
-            if (id) {
-                await axios.put(`${formConfig.apiEndpoint}/${id}`, formData, { withCredentials: true });
-                toast.success(capitalizeFirstLetter(`${formConfig.type} updated successfully`));
-            } else {
-                await axios.post(formConfig.apiEndpoint, formData, { withCredentials: true });
-                toast.success(capitalizeFirstLetter(`${formConfig.type} added successfully`));
-
-
-            }
-            navigate(`/${formConfig.type}`);
+            await onSubmit(formData);
         } catch (err) {
             console.error('Error:', err);
-            toast.error(`Failed to ${id ? 'update' : 'add'} ${formConfig.type}`);
+            toast.error(`Failed to submit ${formConfig.type}`);
         }
     };
 
@@ -88,6 +74,7 @@ function Form({ formConfig, initialData }) {
                                         value={formData[field.name] || ''}
                                         onChange={handleChange}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        readOnly={field.readOnly}
                                     >
                                         <option value="">Select {field.label}</option>
                                         {field.options.map(option => (
@@ -103,6 +90,7 @@ function Form({ formConfig, initialData }) {
                                         onChange={handleChange}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder={field.placeholder}
+                                        readOnly={field.readOnly}
                                     />
                                 )}
                                 {formErrors[field.name] && <div className="text-danger">{formErrors[field.name]}</div>}

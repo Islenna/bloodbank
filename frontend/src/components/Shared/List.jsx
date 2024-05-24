@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 
-function List({ type, data, columns, onRowClick, sortBy, sortOrder, onSort }) {
+function List({ type, data, columns, onRowClick, sortBy, sortOrder, onSort, ownerId }) {
     const navigate = useNavigate();
 
     const handleRowClick = (id) => {
@@ -14,9 +14,42 @@ function List({ type, data, columns, onRowClick, sortBy, sortOrder, onSort }) {
         }
     };
 
+    const handleAdd = () => {
+        if (ownerId) {
+            navigate(`/pets/new?ownerId=${ownerId}`);
+        } else {
+            navigate(`/${type}/new`);
+        }
+    };
+
     return (
         <div className="text-center">
             <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
+                <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+                    <div className="w-full md:w-1/2">
+                        Search
+                    </div>
+                    <button
+                        onClick={handleAdd}
+                        type="button"
+                        className="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+                    >
+                        <svg
+                            className="h-3.5 w-3.5 mr-2"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                        >
+                            <path
+                                clipRule="evenodd"
+                                fillRule="evenodd"
+                                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                            />
+                        </svg>
+                        Add {type.charAt(0).toUpperCase() + type.slice(1)}
+                    </button>
+                </div>
                 <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
                     <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                         <div className="overflow-x-auto">
