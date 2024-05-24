@@ -1,30 +1,30 @@
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { get } = require("mongoose");
 
 module.exports = {
     register: (req, res) => {
-        User.create(req.body)
+        const normalizedEmail = req.body.email.toLowerCase();
+        User.create({ ...req.body, email: normalizedEmail })
             .then(user => {
                 const userToken = jwt.sign({
                     id: user._id,
                     role: user.role
                 }, process.env.JWT_SECRET);
 
-                res
-                    .cookie("usertoken", userToken, {
-                        httpOnly: true
-                    })
-                    .json({ msg: "success!", user: user });
+                res.cookie("usertoken", userToken, {
+                    httpOnly: true
+                }).json({ msg: "success!", user: user });
             })
             .catch(err => res.json(err));
     },
 
     login: async (req, res) => {
         try {
-            console.log('Received login request with email:', req.body.email);
-            const user = await User.findOne({ email: req.body.email });
+            const normalizedEmail = req.body.email.toLowerCase();
+            console.log('Received login request with email:', normalizedEmail);
+            
+            const user = await User.findOne({ email: { $regex: new RegExp(`^${normalizedEmail}$`, 'i') } });
     
             if (user === null) {
                 console.log('User not found.');
@@ -42,18 +42,16 @@ module.exports = {
                 id: user._id,
                 role: user.role
             }, process.env.JWT_SECRET);
-            res
-                .cookie("usertoken", userToken, {
-                    httpOnly: true
-                })
-                res.json({
-                    msg: "success!",
-                    user: {
-                        email: user.email,
-                        role: user.role
-                    },
-                    token: userToken
-                });
+            res.cookie("usertoken", userToken, {
+                httpOnly: true
+            }).json({
+                msg: "success!",
+                user: {
+                    email: user.email,
+                    role: user.role
+                },
+                token: userToken
+            });
         } catch (err) {
             console.error('Error during login:', err);
             res.status(500).json({ error: 'Server error' });
@@ -89,6 +87,4 @@ module.exports = {
         res.clearCookie('usertoken');
         res.sendStatus(200);
     }
-
-
 };

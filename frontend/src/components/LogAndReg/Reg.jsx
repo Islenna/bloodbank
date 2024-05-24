@@ -34,13 +34,13 @@ function Reg() {
             return;
         }
 
-        if (!/^([\w-\.]+@SageCentersTest\.com)?$/i.test(regEmail)) {
+        if (!/^([\w-\.]+@sagecenterstest\.com)?$/i.test(regEmail)) {
             setRegError('Invalid email. Please enter a valid email.');
             return;
         }
 
         const payload = {
-            email: regEmail,
+            email: regEmail.toLowerCase(),
             password: regPassword,
             confirmPassword: confirmPassword,
         };
@@ -57,7 +57,6 @@ function Reg() {
                 console.log(err);
             });
     };
-
 
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
@@ -146,7 +145,7 @@ function Reg() {
                 </div>
             </div>
         </section>
-    )
+    );
 }
 
-export default Reg
+export default Reg;

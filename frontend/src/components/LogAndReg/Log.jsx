@@ -18,14 +18,12 @@ function Log() {
         setPasswordShown(!passwordShown);
     };
 
-
     const loginHandler = (e) => {
         e.preventDefault();
         const payload = {
-            email: loginEmail,
+            email: loginEmail.toLowerCase(),
             password: loginPassword,
         };
-
 
         axios.post('http://localhost:8000/api/users/login', payload, { withCredentials: true })
             .then((res) => {
@@ -41,12 +39,10 @@ function Log() {
             });
     }
 
-
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <img src={logo} alt="logo" className="w-24 h-24 mb-2" />
-
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -60,7 +56,7 @@ function Log() {
                                     onChange={(e) => setLoginEmail(e.target.value)}
                                     required />
                             </div>
-                            <div className="relative"> {/* Ensure this container has the "relative" class */}
+                            <div className="relative">
                                 <input
                                     type={passwordShown ? "text" : "password"}
                                     name="password"
@@ -72,10 +68,10 @@ function Log() {
                                     required
                                 />
                                 <button
-                                    type="button" // Specify type to prevent form submission
+                                    type="button"
                                     onClick={togglePasswordVisibility}
                                     className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
-                                    style={{ outline: 'none' }} // To remove focus outline, if desired
+                                    style={{ outline: 'none' }}
                                 >
                                     <FontAwesomeIcon
                                         icon={passwordShown ? faEyeSlash : faEye}
@@ -93,7 +89,7 @@ function Log() {
                 </div>
             </div>
         </section>
-    )
+    );
 }
 
-export default Log
+export default Log;

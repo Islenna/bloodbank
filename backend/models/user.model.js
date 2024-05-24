@@ -1,16 +1,16 @@
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
-
-
 const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, "Email is required"],
         validate: {
-            validator: val => /^([\w-\.]+@SageCentersTest\.com)?$/.test(val),
+            validator: val => /^([\w-\.]+@sagecenterstest\.com)?$/i.test(val),
             message: "Please enter a valid email."
-        }
+        },
+        unique: true, // Ensure emails are unique
+        lowercase: true // Automatically convert email to lowercase
     },
     password: {
         type: String,
@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        default: 'standard', //Default role is standard
+        default: 'standard', // Default role is standard
         enum: ['admin', 'manager', 'standard']
     }
 }, { timestamps: true });
