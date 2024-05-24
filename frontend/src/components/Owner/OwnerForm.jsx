@@ -1,5 +1,8 @@
 import React from 'react';
 import Form from '../Shared/Form';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const ownerFormConfig = {
     type: 'owners',
@@ -20,5 +23,18 @@ const ownerFormConfig = {
 };
 
 export default function OwnerForm() {
-    return <Form formConfig={ownerFormConfig} />;
+    const navigate = useNavigate();
+
+    const handleSubmit = async (formData) => {
+        try {
+            await axios.post(ownerFormConfig.apiEndpoint, formData, { withCredentials: true });
+            toast.success('Owner added successfully');
+            navigate('/donors');
+        } catch (err) {
+            console.error('Error:', err);
+            toast.error('Failed to add owner');
+        }
+    };
+
+    return <Form formConfig={ownerFormConfig} onSubmit={handleSubmit} />;
 }
