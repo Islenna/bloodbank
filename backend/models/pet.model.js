@@ -11,6 +11,7 @@ const PetSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Owner',
         },
+        ezyVetId: { type: String },
         petDescription: { type: String },
         bloodType: {
             type: String,

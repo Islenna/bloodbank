@@ -14,8 +14,9 @@ export default function PetEdit() {
         fields: [
             { name: 'petName', label: 'Pet Name', type: 'text', required: true },
             { name: 'petType', label: 'Pet Type', type: 'select', options: ['Dog', 'Cat'], required: true },
-            { name: 'owner', label: 'Owner', type: 'text', required: true, readOnly: true }, // Read-only as it's assigned
+            { name: 'owner', label: 'Owner', type: 'text', required: true, readOnly: true }, 
             { name: 'petDescription', label: 'Pet Description', type: 'text', required: false },
+            { name: 'ezyVetId', label: 'EzyVet ID', type: 'text', required: true },
             { name: 'bloodType', label: 'Blood Type', type: 'select', options: ['DEA 1.1 Positive', 'DEA 1.1 Negative', 'A', 'B', 'AB'], required: true },
             { name: 'lastDonated', label: 'Last Donated', type: 'date', required: false },
             { name: 'labworkStatus', label: 'Labwork Status', type: 'select', options: ['Incomplete', 'Pending', 'Complete'], required: false },

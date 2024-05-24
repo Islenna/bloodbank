@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
+import Search from '../Search';
 
 function List({ type, data, columns, onRowClick, sortBy, sortOrder, onSort, ownerId }) {
     const navigate = useNavigate();
@@ -27,7 +28,7 @@ function List({ type, data, columns, onRowClick, sortBy, sortOrder, onSort, owne
             <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
                 <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div className="w-full md:w-1/2">
-                        Search
+                        <Search />
                     </div>
                     <button
                         onClick={handleAdd}

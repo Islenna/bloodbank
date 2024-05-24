@@ -23,6 +23,7 @@ const petColumns = [
     { name: 'petName', label: 'Pet Name' },
     { name: 'petType', label: 'Pet Type' },
     { name: 'bloodType', label: 'Blood Type' },
+    { name: 'ezyVetId', label: 'EzyVet ID'},
     { name: 'lastDonated', label: 'Last Donated', format: (date) => date ? new Date(date).toLocaleDateString('en-US') : 'N/A' },
 ];
 

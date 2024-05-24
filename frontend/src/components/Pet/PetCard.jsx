@@ -11,6 +11,7 @@ const petCardConfig = {
         { name: 'petName', label: 'Pet Name' },
         { name: 'petType', label: 'Pet Type' },
         { name: 'petDescription', label: 'Pet Description' },
+        { name: 'ezyVetId', label: 'EzyVet ID'},
         { name: 'bloodType', label: 'Blood Type' },
         { name: 'lastDonated', label: 'Last Donated', format: (date) => date ? new Date(date).toLocaleDateString('en-US') : 'N/A' },
         { name: 'labworkStatus', label: 'Labwork Status' },
