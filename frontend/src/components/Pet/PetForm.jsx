@@ -39,7 +39,6 @@ export default function PetForm() {
         try {
             // Ensure owner ID is included in the form data
             const dataWithOwner = { ...formData, owner: ownerId };
-            console.log('Submitting data:', dataWithOwner); // Log the data being sent
             await axios.post(petFormConfig.apiEndpoint, dataWithOwner, { withCredentials: true });
             toast.success(`${petFormConfig.type.charAt(0).toUpperCase() + petFormConfig.type.slice(1)} added successfully`);
             navigate(`/owners/${ownerId}`);

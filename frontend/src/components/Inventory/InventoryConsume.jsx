@@ -54,7 +54,6 @@ export default function InventoryConsume({ totalVolume }) {
             transferredTo: transferredTo,
             transferredBy: transferredBy,
         };
-        console.log('Data to be sent:', consumptionData);// log the data to be sent
         axios
             .put(`http://localhost:8000/api/inventory/consume/${id}`, consumptionData, { withCredentials: true })
             .then((res) => {

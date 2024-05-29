@@ -119,7 +119,6 @@ export default function InventoryEditForm() {
                             value={formData.onHold}
                             onChange={(e) => {
                                 setFormData({ ...formData, onHold: e.target.value });
-                                console.log('Selected On Hold:', e.target.value);
                             }}
                         >
                             <option value="">On Hold</option>

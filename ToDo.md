@@ -14,7 +14,7 @@
   - [ x ] Mobile dropdowns
 - [ x ] Improve light mode display
 - [ x ] Add eye/eyeslash to passwords. 
-
+- [ ] Figure out what to do with console logs.
 Donor Addins:
 - [ x ] Search functionality
 - [ x ] Fix ezyVet integration live.

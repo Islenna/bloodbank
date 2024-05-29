@@ -22,19 +22,16 @@ module.exports = {
     login: async (req, res) => {
         try {
             const normalizedEmail = req.body.email.toLowerCase();
-            console.log('Received login request with email:', normalizedEmail);
             
             const user = await User.findOne({ email: { $regex: new RegExp(`^${normalizedEmail}$`, 'i') } });
     
             if (user === null) {
-                console.log('User not found.');
                 return res.sendStatus(400);
             }
     
             const correctPassword = await bcrypt.compare(req.body.password, user.password);
     
             if (!correctPassword) {
-                console.log('Incorrect password.');
                 return res.sendStatus(400);
             }
     

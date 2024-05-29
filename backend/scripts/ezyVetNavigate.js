@@ -41,7 +41,6 @@ async function main() {
         const accessToken = await getEzyVetAccessToken();
         const animalCode = '476773'; // Replace with the actual animal code
         const animalDetails = await getAnimalDetailsByCode(accessToken, animalCode);
-        console.log('Animal Details:', animalDetails);
     } catch (error) {
         console.error('Error:', error);
     }

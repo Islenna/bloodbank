@@ -60,6 +60,7 @@ function FilterButton({ onFilterChange }) { // Prop to handle filter changes
                         >
                             <option value="">All</option>
                             <option value="pRBC">pRBC</option>
+                            <option value="Whole Blood">Whole Blood</option>
                             <option value="FFP">FFP</option>
                             <option value="Cryo">Cryo</option>
                             <option value="HBOC">HBOC</option>

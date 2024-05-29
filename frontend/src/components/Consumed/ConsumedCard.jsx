@@ -36,7 +36,6 @@ function ConsumedCard() {
         axios
             .delete(`http://localhost:8000/api/consumed/${id}`, { withCredentials: true })
             .then((res) => {
-                console.log(res.data);
                 navigate(`/inventory/consumed`);
             })
             .catch((err) => console.log(err));
