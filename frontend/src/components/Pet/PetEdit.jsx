@@ -14,7 +14,6 @@ export default function PetEdit() {
         fields: [
             { name: 'petName', label: 'Pet Name', type: 'text', required: true },
             { name: 'petType', label: 'Pet Type', type: 'select', options: ['Dog', 'Cat'], required: true },
-            { name: 'owner', label: 'Owner', type: 'text', required: true, readOnly: true }, 
             { name: 'petDescription', label: 'Pet Description', type: 'text', required: false },
             { name: 'ezyVetCode', label: 'EzyVet ID', type: 'text', required: true },
             { name: 'bloodType', label: 'Blood Type', type: 'select', options: ['DEA 1.1 Positive', 'DEA 1.1 Negative', 'A', 'B', 'AB'], required: true },

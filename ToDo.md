@@ -16,5 +16,7 @@
 - [ x ] Add eye/eyeslash to passwords. 
 
 Donor Addins:
-- [ ] Search functionality
+- [ x ] Search functionality
 - [ x ] Fix ezyVet integration live.
+- [ ] Flag in-house donors for donation, auto-create inventory once donation is committed? Auto-update donation dates to today? 
+  - [ ] Gather more info.
