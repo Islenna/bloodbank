@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Form from '../Shared/Form';
+import { toast } from 'react-toastify';
 
 const Update = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [initialData, setInitialData] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -39,13 +41,24 @@ const Update = () => {
         ]
     };
 
+    const handleSubmit = async (formData) => {
+        try {
+            await axios.put(`${ownerFormConfig.apiEndpoint}/${id}`, formData, { withCredentials: true });
+            toast.success('Owner updated successfully');
+            navigate(`/owners/${id}`);
+        } catch (err) {
+            console.error('Error updating owner:', err);
+            toast.error('Failed to update owner');
+        }
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
 
     return (
         <div>
-            <Form formConfig={ownerFormConfig} initialData={initialData} />
+            <Form formConfig={ownerFormConfig} initialData={initialData} onSubmit={handleSubmit} />
         </div>
     );
 };
