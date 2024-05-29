@@ -24,7 +24,7 @@ function List({ type, data, columns, onRowClick, sortBy, sortOrder, onSort, owne
     };
 
     return (
-        <div className="text-center">
+        <div className="w-full">
             <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
                 <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div className="w-full md:w-1/2">

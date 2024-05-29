@@ -53,20 +53,31 @@ function Card({ cardConfig, isEditable = true }) {
                         </div>
                     </div>
                 </div>
-                <div className="flex justify-between items-center space-x-4">
-                    {cardConfig.extraContent && typeof cardConfig.extraContent === 'function' && cardConfig.extraContent(data, setData)}
-                    <div className="flex space-x-4">
-                        <button
-                            type="button"
-                            onClick={handleDelete}
-                            className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                        >
-                            Delete
-                        </button>
-
-                    </div>
-                </div>
+                {cardConfig.extraContent && typeof cardConfig.extraContent === 'function' && cardConfig.extraContent(data, setData)}
             </section>
+            <div className="flex justify-between items-center space-x-4">
+                <button
+                    type="button"
+                    onClick={() => navigate(`${cardConfig.editPath}/${id}`)}
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                    Edit {cardConfig.title}
+                </button>
+                <button
+                    type="button"
+                    onClick={handleDelete}
+                    className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                >
+                    Delete {cardConfig.title}
+                </button>
+                <button
+                    type="button"
+                    onClick={() => navigate(`/${cardConfig.type}`)}
+                    className="text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-900"
+                >
+                    Back to {cardConfig.type === 'owner' ? 'Donors' : 'Pets'}
+                </button>
+            </div>
         </div>
     );
 }

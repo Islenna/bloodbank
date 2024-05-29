@@ -71,22 +71,6 @@ export default function OwnerCard() {
     return (
         <div className="space-y-4">
             <Card cardConfig={cardConfigWithPets} isEditable={false} />
-            <div className="flex space-x-4 justify-center">
-                <button
-                    type="button"
-                    onClick={() => navigate(`/owners/edit/${id}`)}
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                    Edit Owner
-                </button>
-                <button
-                    type="button"
-                    onClick={() => navigate(`/donors`)}
-                    className="text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-900"
-                >
-                    Back to Donors
-                </button>
-            </div>
         </div>
     );
 }
