@@ -60,12 +60,10 @@ export default function InventoryEditForm() {
         axios
             .put(`http://localhost:8000/api/inventory/notes/${id}`, formData, { withCredentials: true })
             .then((res) => {
-                console.log('Response:', res);
                 navigate(`/inventory/${id}`);
                 toast.success('Inventory updated successfully!');
             })
             .catch((err) => {
-                console.log('Error:', err);
                 toast.error('Error updating inventory.');
             });
     };
@@ -101,7 +99,6 @@ export default function InventoryEditForm() {
                             value={formData.homeClinic}
                             onChange={(e) => {
                                 setFormData({ ...formData, homeClinic: e.target.value });
-                                console.log('Selected Home Clinic:', e.target.value);
                             }}
                         >
                             <option value="">Bag Location</option>

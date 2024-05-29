@@ -48,7 +48,6 @@ function Reg() {
         axios
             .post('http://localhost:8000/api/users/register', payload, { withCredentials: true })
             .then((res) => {
-                console.log(res);
                 login();
                 navigate('/bloodfinder');
             })

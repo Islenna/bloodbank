@@ -46,11 +46,9 @@ export default function Suggestions() {
 
         const payload = { message };
 
-        console.log('Submitting suggestion:', payload); // Log the payload being sent
 
         try {
             const response = await axios.post('http://localhost:8000/api/suggestion', payload);
-            console.log('Response:', response); // Log the response
             toast.success('Suggestion sent successfully');
             setMessage('');
         } catch (error) {

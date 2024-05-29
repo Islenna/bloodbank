@@ -46,10 +46,8 @@ const fetchEzyVetId = async (code, setData) => {
             console.error('EzyVet code is undefined');
             return;
         }
-        console.log('Fetching EzyVet ID for code:', code);
         const response = await axios.get(`http://localhost:8000/api/ezyvet/animal/${code}`);
         const ezyVetData = response.data;
-        console.log('Fetched EzyVet Data:', ezyVetData);
         setData(prevData => ({ ...prevData, ezyVetId: ezyVetData.id }));
     } catch (error) {
         console.error('Error fetching EzyVet ID:', error);

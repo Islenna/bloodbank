@@ -4,8 +4,17 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Card from '../Shared/Card';
 import List from '../Shared/List';
 
+function formatPhoneNumber(phoneNumber) {
+    const cleaned = ('' + phoneNumber).replace(/\D/g, '');
+    const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+    if (match) {
+        return `(${match[1]}) ${match[2]}-${match[3]}`;
+    }
+    return phoneNumber;
+}
+
 const ownerCardConfig = {
-    type: 'owner',
+    type: 'owners',
     title: 'Owner',
     apiEndpoint: 'http://localhost:8000/api/owners',
     identifierField: 'firstName',
@@ -14,13 +23,14 @@ const ownerCardConfig = {
         { name: 'firstName', label: 'First Name' },
         { name: 'lastName', label: 'Last Name' },
         { name: 'email', label: 'Email' },
-        { name: 'phoneNumber', label: 'Phone Number' },
+        { name: 'phoneNumber', label: 'Phone Number', format: formatPhoneNumber },
         { name: 'homeClinic', label: 'Home Clinic' }
     ],
-    extraContent: (data, setData) => (
+    extraContent: (data, id) => (
         <div>
             <h3 className="text-lg font-semibold">Pets</h3>
             <List
+                apiEndpoint={`http://localhost:8000/api/owners/${id}/pets`}
                 type="pets"
                 data={data.pets || []}
                 columns={petColumns}
@@ -41,36 +51,43 @@ const petColumns = [
 
 export default function OwnerCard() {
     const { id } = useParams();
-    const [pets, setPets] = useState([]);
+    const [ownerData, setOwnerData] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/owners/${id}/pets`, { withCredentials: true })
+        axios.get(`http://localhost:8000/api/owners/${id}`, { withCredentials: true })
             .then((res) => {
-                setPets(res.data || []);
+                setOwnerData(res.data);
             })
             .catch((err) => console.log(err));
     }, [id]);
 
-    const cardConfigWithPets = {
-        ...ownerCardConfig,
-        extraContent: (data) => (
-            <div>
-                <h3 className="text-lg font-semibold">Pets</h3>
-                <List
-                    type="pets"
-                    data={pets}
-                    columns={petColumns}
-                    onRowClick={(petId) => navigate(`/pets/${petId}`)}
-                    ownerId={id} // Pass ownerId to List
-                />
-            </div>
-        )
-    };
+    if (!ownerData) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="space-y-4">
-            <Card cardConfig={cardConfigWithPets} isEditable={false} />
+            <Card
+                cardConfig={{
+                    ...ownerCardConfig,
+                    extraContent: (data) => (
+                        <div>
+                            <h3 className="text-lg font-semibold">Pets</h3>
+                            <List
+                                apiEndpoint={`http://localhost:8000/api/owners/${id}/pets`}
+                                type="pets"
+                                data={data.pets || []}
+                                columns={petColumns}
+                                onRowClick={(petId) => navigate(`/pets/${petId}`)}
+                                ownerId={id} // Pass ownerId to List
+                            />
+                        </div>
+                    )
+                }}
+                data={ownerData}
+                isEditable={false}
+            />
         </div>
     );
 }

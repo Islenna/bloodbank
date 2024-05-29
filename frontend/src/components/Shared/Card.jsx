@@ -12,7 +12,6 @@ function Card({ cardConfig, isEditable = true }) {
             .get(`${cardConfig.apiEndpoint}/${id}`, { withCredentials: true })
             .then((res) => {
                 setData(res.data);
-                console.log('Fetched data:', res.data);
             })
             .catch((err) => console.log(err));
     }, [cardConfig.apiEndpoint, id]);
@@ -75,7 +74,7 @@ function Card({ cardConfig, isEditable = true }) {
                     onClick={() => navigate(`/${cardConfig.type}`)}
                     className="text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-900"
                 >
-                    Back to {cardConfig.type === 'owner' ? 'Donors' : 'Pets'}
+                    Back to {cardConfig.type === 'owner' ? 'Owners' : 'Pets'}
                 </button>
             </div>
         </div>
