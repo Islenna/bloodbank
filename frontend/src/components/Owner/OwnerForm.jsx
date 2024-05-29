@@ -29,7 +29,7 @@ export default function OwnerForm() {
         try {
             await axios.post(ownerFormConfig.apiEndpoint, formData, { withCredentials: true });
             toast.success('Owner added successfully');
-            navigate('/donors');
+            navigate('/owners');
         } catch (err) {
             console.error('Error:', err);
             toast.error('Failed to add owner');

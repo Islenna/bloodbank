@@ -30,7 +30,7 @@ export default function PetForm() {
     useEffect(() => {
         if (!ownerId) {
             console.error('Owner ID is required to create a pet');
-            navigate('/donors'); // Redirect back to owners if no owner ID is found
+            navigate('/owners'); // Redirect back to owners if no owner ID is found
             toast.error('Owner ID is required to create a pet');
         }
     }, [ownerId, navigate]);

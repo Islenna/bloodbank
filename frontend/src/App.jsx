@@ -52,7 +52,7 @@ function App() {
           <Route path="/consumed/:id" element={<ConsumedCard />} />
           <Route path="/suggestions" element={<Suggestions />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/donors" element={<OwnerList />} />
+          <Route path="/owners" element={<OwnerList />} />
           <Route path="/owners/new" element={<OwnerForm />} />
           <Route path="/owners/:id" element={<OwnerCard />} />
           <Route path="/owners/edit/:id" element={<OwnerEdit />} />
