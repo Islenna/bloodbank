@@ -13,7 +13,7 @@ function Card({ cardConfig, isEditable = true }) {
             .then((res) => {
                 setData(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error('Error fetching data:', err));
     }, [cardConfig.apiEndpoint, id]);
 
     const handleDelete = () => {
@@ -22,7 +22,7 @@ function Card({ cardConfig, isEditable = true }) {
             .then(() => {
                 navigate(`/${cardConfig.type}`);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error('Error deleting data:', err));
     };
 
     const handleEditClick = () => {
@@ -34,15 +34,15 @@ function Card({ cardConfig, isEditable = true }) {
     return (
         <div className="space-y-4">
             <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
-                <h1 className="mb-2 text-2xl text-black dark:text-white font-bold">{cardConfig.title} {data[cardConfig.identifierField]}</h1>
+                <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">{cardConfig.title} {data[cardConfig.identifierField]}</h1>
                 <div
-                    className={`flex justify-center items-center space-y-4 ${isEditable ? 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700' : ''} border border-gray-200 rounded-lg shadow-md p-6 mb-8`}
+                    className={`flex justify-center items-center space-y-4 ${isEditable ? 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700' : ''} border border-gray-200 rounded-lg shadow-md p-6 mb-8 bg-white dark:bg-gray-800`}
                     onClick={handleEditClick}
                 >
                     <div className="w-full">
                         <div className="space-y-4">
-                            <div className="text-xl font-semibold">{cardConfig.title} Information</div>
-                            <div className="space-y-2">
+                            <div className="text-xl font-semibold text-gray-900 dark:text-white">{cardConfig.title} Information</div>
+                            <div className="space-y-2 text-gray-900 dark:text-gray-400">
                                 {cardConfig.fields.map((field) => (
                                     <p className="text-sm" key={field.name}>
                                         <span className="font-semibold">{field.label}:</span> {field.format ? field.format(data[field.name]) : data[field.name]}

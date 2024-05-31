@@ -53,6 +53,7 @@ export default function OwnerCard() {
     const { id } = useParams();
     const [ownerData, setOwnerData] = useState(null);
     const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/owners/${id}`, { withCredentials: true })
